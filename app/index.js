@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import $ from 'jquery';
+import foo from './foo';
 
 function component() {
     // var element = document.createElement('div');
@@ -16,3 +17,7 @@ function component() {
 }
 
 document.body.appendChild(component());
+
+//import foo模块
+console.log(foo);
+console.log(foo());
