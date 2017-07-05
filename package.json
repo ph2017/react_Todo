@@ -13,6 +13,6 @@
         "test": "react-scripts test --env=jsdom",
         "eject": "react-scripts eject"
     },
-    "homepage": "https://ph2017.github.io/react_Todo"
+    "homepage": "https://ph2017.github.io/react_Todo/build"
 
 }
