@@ -9,4 +9,4 @@ import Welcome from './Welcome';
 /*ReactDOM.render( < h1 > Hello, world! < /h1> , document.getElementById('root'));
         registerServiceWorker();*/
 
-ReactDOM.render( < Welcome / > , document.getElementById('root'));
+ReactDOM.render( <Welcome name="react component!"/> , document.getElementById('root'));
