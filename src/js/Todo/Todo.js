@@ -19,12 +19,25 @@ class Todo extends React.Component{
         }
     }
 
+    addTodo(todo){
+        // this.state.todoList.push({
+        //     id: new Date().toTimeString,
+        //     title: todo
+        // })
+
+        // this.setState({
+        //     todoList
+        // })
+
+        console.log('我要添加一个todo了!!');
+    }
+
     render(){
 
         return (
             <div className="todoCt">
                 <h1>我的代办：</h1>
-                <TodoInput content={this.state.newTodo}/> 
+                <TodoInput content={this.state.newTodo} onSubmit={this.addTodo}/> 
                 <TodoItem todoList={this.state.todoList}/>
             </div>
         );
