@@ -6,6 +6,7 @@ class TodoInput extends React.Component{
         if(e.key === 'Enter'){
             console.log('用户按回车键了');
 
+            console.log(this);
             this.props.onSubmit.call();
         }
     }
@@ -13,7 +14,7 @@ class TodoInput extends React.Component{
     render(){
         return (
             <input type="text" defaultValue={this.props.content} 
-                onKeyPress={this.submit}/>
+                onKeyPress={this.submit.bind(this)}/>
         ); 
     }
 }
