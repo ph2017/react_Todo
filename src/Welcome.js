@@ -4,10 +4,12 @@ class Welcome extends React.Component {
         super(props);
 
         this.state = {
-            date: new Date()
+            date: new Date(),
+            test: '1'
         }
 
         console.log('我已在constructor里将 props 和 state 初始化好了');
+
     }
 
     tick(){
@@ -20,6 +22,16 @@ class Welcome extends React.Component {
         console.log('运行到这里，说明马上要render了');
     }
 
+    render() {
+        console.log('这里是render');
+        return (
+            <div>
+                <h1> Hello, component! </h1>
+                <h2> {this.state.date.toString()} </h2>
+            </div>
+        );
+    }
+
     //组件mount时启动定时器
     componentDidMount() {
         console.log('已经挂载到页面了');
@@ -30,21 +42,29 @@ class Welcome extends React.Component {
         );
     }
 
+    componentWillReceiveProps(){
+       
+    }
+
+    shouldComponentUpdate() {
+        return true;
+    }
+
+    componentWillUpdate() {
+        
+    }
+
+    componentDidUpdate() {
+        
+    }
+
     //组件unMount时停止定时器
     componentWillUnmount() {
         console.log('马上要消失了');
         clearInterval(this.timerID);
     }
 
-    render() {
-        console.log('这里是render');
-        return (
-            <div>
-                <h1> Hello, component! </h1>
-                <h2> {this.state.date.toString()} </h2>
-            </div>
-        );
-    }
+    
 
     
 }
