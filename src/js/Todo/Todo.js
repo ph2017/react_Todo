@@ -1,4 +1,5 @@
 import React from 'react';
+import TodoInput from './TodoInput'
 
 class Todo extends React.Component{
     constructor(props){
@@ -18,8 +19,7 @@ class Todo extends React.Component{
         return (
             <div>
                 <h1>我的代办：</h1>
-                {/*value=后不能加引号，否则会报错*/}
-                <input type="text" value={this.state.newTodo}/> 
+                <TodoInput content={this.state.newTodo}/> 
                 <ol>
                     {todos}
                 </ol>
