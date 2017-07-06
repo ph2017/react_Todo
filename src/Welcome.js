@@ -6,20 +6,28 @@ class Welcome extends React.Component {
         this.state = {
             date: new Date()
         }
-
-        //setState的函数式赋值方式所使用的函数，函数返回要复制state对象
-        function setDate(state, props){
-            return {date: new Date};
-        }
-
-        setInterval(()=>{
-            //setState直接赋值的方式
-            // this.setState({date: new Date});
-            
-            //函数式赋值方式
-            this.setState(setDate);
-        }, 1000);
     }
+
+    tick(){
+        this.setState({
+            date: new Date()
+        });
+    }
+
+    //组件mount时启动定时器
+    componentDidMount() {
+        //保存定时器的timerID到this
+        this.timerID = setInterval(
+            () => this.tick(),
+            1000
+        );
+    }
+
+    //组件unMount时停止定时器
+    componentWillUnmount() {
+        clearInterval(this.timerID);
+    }
+
     render() {
         return (
             <div>
@@ -28,6 +36,8 @@ class Welcome extends React.Component {
             </div>
         );
     }
+
+    
 }
 
 //用函数形式实现
