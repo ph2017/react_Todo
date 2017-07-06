@@ -1,6 +1,13 @@
 import React from 'react';
 
 class TodoInput extends React.Component{
+    
+    constructor(props){
+        super(props);
+
+        //这样也可以解决this的bug，是官方温度计例子的做法
+        this.submit = this.submit.bind(this);
+    }
 
     submit(e){
         if(e.key === 'Enter'){
@@ -14,7 +21,7 @@ class TodoInput extends React.Component{
     render(){
         return (
             <input type="text" defaultValue={this.props.content} 
-                onKeyPress={this.submit.bind(this)}/>
+                onKeyPress={this.submit}/>
         ); 
     }
 }
