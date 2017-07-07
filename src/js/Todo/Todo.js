@@ -4,7 +4,6 @@ import 'reset.css';
 import '../../css/todo.css'
 import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
-import * as localStorage from './lacolStorage';
 
 class Todo extends React.Component{
     constructor(props){
@@ -17,7 +16,7 @@ class Todo extends React.Component{
             ]
              */
         this.state = {
-            todoList: localStorage.load('todoList') || [],
+            todoList: [],
             newTodo: ''
         }
 
@@ -46,7 +45,7 @@ class Todo extends React.Component{
 
     componentDidUpdate(){
         //组件更新后，保存todoList到localStorage
-        localStorage.save('todoList', this.state.todoList);
+        // localStorage.save('todoList', this.state.todoList);
     }
 
     changeTitle(event){
