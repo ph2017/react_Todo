@@ -15,14 +15,6 @@ AV.init({
   appKey: APP_KEY
 });
 
-var TestObject = AV.Object.extend('TestObject');
-var testObject = new TestObject();
-testObject.save({
-  words: 'Hello World!'
-}).then(function(object) {
-  alert('LeanCloud Rocks!');
-})
-
 class Todo extends React.Component{
     constructor(props){
         super(props);
