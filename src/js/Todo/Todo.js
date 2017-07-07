@@ -5,6 +5,7 @@ import '../../css/todo.css'
 import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
 import UserDialog from './UserDialog';
+import {getCurrentUser} from './LeanCloud';
 
 class Todo extends React.Component{
     constructor(props){
@@ -17,7 +18,7 @@ class Todo extends React.Component{
             ]
              */
         this.state = {
-            user: {},
+            user: getCurrentUser() || {},
             todoList: [],
             newTodo: ''
         }

@@ -28,9 +28,20 @@ export function signUp(userName, passWord, successFn, errorFn){
     return undefined
 }
 
+//解析返回的用户数据
 function getUserFromAVUser(AVUser){
     return{
         id: AVUser.id,
         ...AVUser.attributes
+    }
+}
+
+//查找上次登录的用户
+export function getCurrentUser(){
+    let user = AV.User.current()
+    if(user){
+        return getUserFromAVUser(user)
+    }else{
+        return null
     }
 }
