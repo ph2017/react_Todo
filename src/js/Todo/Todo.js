@@ -4,6 +4,7 @@ import 'reset.css';
 import '../../css/todo.css'
 import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
+import UserDialog from './UserDialog';
 
 class Todo extends React.Component{
     constructor(props){
@@ -89,6 +90,8 @@ class Todo extends React.Component{
                 <ol className="todoList">
                     {todos}
                 </ol>
+
+                <UserDialog/>
             </div>
         );
     }
