@@ -26,7 +26,6 @@ class Todo extends React.Component{
 
     addTodo(event){
         let newTodoList = this.state.todoList;
-        let curDate = new Date();
         let idx = Math.random().toString().substr(-5);
         newTodoList.push({
             id: idx,
@@ -63,7 +62,9 @@ class Todo extends React.Component{
 
     render(){
 
-        let todos = this.state.todoList.map((element, idex)=>{
+        let todos = this.state.todoList
+            .filter((item)=> !item.deleted)
+            .map((element, idex)=>{
             return (
                 <li key={element.id}>
                     <TodoItem todo={element} onToggle={this.changeStatus} onDelete={this.deleteTodo}/>
