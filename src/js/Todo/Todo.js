@@ -100,8 +100,9 @@ class Todo extends React.Component{
                 <ol className="todoList">
                     {todos}
                 </ol>
-
-                <UserDialog onSignUp={this.onSignUp.bind(this)}/>
+                {/*注册/登录成功，则关闭登录dialog*/}
+                {this.state.user.id ? null : <UserDialog onSignUp={this.onSignUp.bind(this)}/>}
+                
             </div>
         );
     }
