@@ -6,10 +6,15 @@ class TodoItem extends React.Component{
         super(props);
 
         this.changeStatus = this.changeStatus.bind(this);
+        this.deleteTodo = this.deleteTodo.bind(this);
     }
 
     changeStatus(e){
         this.props.onToggle(e, this.props.todo);
+    }
+
+    deleteTodo(e){
+        this.props.onDelete(e, this.props.todo)
     }
 
     render(){
@@ -17,6 +22,7 @@ class TodoItem extends React.Component{
             <div>
                 <input type="checkbox" checked={this.props.todo.status} onChange={this.changeStatus}/>
                 {this.props.todo.title}
+                <button onClick={this.deleteTodo} disabled={this.props.todo.deleted}>删除</button>
             </div>
         )
     }

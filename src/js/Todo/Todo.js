@@ -21,6 +21,7 @@ class Todo extends React.Component{
         this.addTodo = this.addTodo.bind(this)
         this.changeTitle = this.changeTitle.bind(this)
         this.changeStatus = this.changeStatus.bind(this)
+        this.deleteTodo = this.deleteTodo.bind(this)
     }
 
     addTodo(event){
@@ -55,12 +56,17 @@ class Todo extends React.Component{
         // console.log('todoList', this.state.todoList)
     }
 
+    deleteTodo(event, todo){
+        todo.deleted = true
+        this.setState(this.state)
+    }
+
     render(){
 
         let todos = this.state.todoList.map((element, idex)=>{
             return (
-                <li>
-                    <TodoItem todo={element} onToggle={this.changeStatus}/>
+                <li key={element.id}>
+                    <TodoItem todo={element} onToggle={this.changeStatus} onDelete={this.deleteTodo}/>
                 </li>
             )
         })
