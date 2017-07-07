@@ -47,7 +47,7 @@ class Todo extends React.Component{
     }
 
     //注册组件的注册处理方法
-    onSignUp(user){
+    onSignUpOrSignIn(user){
         let stateCopy = JSON.parse(JSON.stringify(this.state))
         stateCopy.user = user
         this.setState(stateCopy)
@@ -62,14 +62,6 @@ class Todo extends React.Component{
         this.setState(stateCopy)
 
         console.log('todo 的 onSignOut', this.state.user)
-    }
-
-    onSignIn(){
-        let stateCopy = JSON.parse(JSON.stringify(this.state))
-        stateCopy.user = {}
-        this.setState(stateCopy)
-
-        console.log('todo 的 onSignIn', this.state.user)
     }
 
     componentDidUpdate(){
@@ -121,7 +113,7 @@ class Todo extends React.Component{
                     {todos}
                 </ol>
                 {/*注册/登录成功，则关闭登录dialog*/}
-                {this.state.user.id ? null : <UserDialog onSignUp={this.onSignUp.bind(this)} onSignIn={this.onSignIn.bind(this)}/>}
+                {this.state.user.id ? null : <UserDialog onSignUpOrSignIn={this.onSignUpOrSignIn.bind(this)} />}
                 
             </div>
         );

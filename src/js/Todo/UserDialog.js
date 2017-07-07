@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import '../../css/userDialog.css'
-import {signUp,signIn} from './LeanCloud'
+import {signUp, signIn, getErrorCodeMessage} from './LeanCloud'
 
 export default class UserDialog extends Component{
   constructor(props){
@@ -29,12 +29,12 @@ export default class UserDialog extends Component{
     let success = (user)=>{
         // console.log('用户登录成功！！')
         // console.log(user)
-        this.props.onSignUp.call(null, user)
+        this.props.onSignUpOrSignIn.call(null, user)
     }
 
     let error = (error)=>{
-        console.log('用户注册失败！！')
-        console.log(error)
+        console.log('用户登录失败！！')
+        this.errorTip(error)
     }
 
     signIn(userName, passWord, success, error)
@@ -51,17 +51,23 @@ export default class UserDialog extends Component{
     let success = (user)=>{
         // console.log('用户注册成功！！')
         // console.log(user)
-        this.props.onSignUp.call(null, user)
+        this.props.onSignUpOrSignIn.call(null, user)
     }
 
     let error = (error)=>{
         console.log('用户注册失败！！')
-        console.log(error)
+        
+        this.errorTip(error)
     }
 
     signUp(userName, passWord, success, error)
 
     console.log('我是注册')
+  }
+
+  //error提示方法
+  errorTip(error){
+      alert(getErrorCodeMessage(error.code))
   }
 
   //输入用户名更改时的处理方法

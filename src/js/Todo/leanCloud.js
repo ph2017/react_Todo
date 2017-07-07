@@ -65,3 +65,14 @@ export function signOut(){
     console.log('我是登出！！')
     return undefined
 }
+
+export function getErrorCodeMessage(errorCode){
+    const errorCodeMesage = {
+        202: '用户名已被占用',
+        210: '用户名获取密码有误，请检查',
+        211: '用户名不存在，请检查',
+        125: '电子邮箱地址无效'
+    }
+    // console.log('errorCodeMesage[' + errorCode + '] = ' + errorCodeMesage[errorCode])
+    return errorCodeMesage[errorCode]
+}
