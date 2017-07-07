@@ -9,6 +9,7 @@ AV.init({
 
 export default AV;
 
+//注册的方法
 export function signUp(userName, passWord, successFn, errorFn){
     //创建AVUser对象实例
     let user = new AV.User()
@@ -26,6 +27,18 @@ export function signUp(userName, passWord, successFn, errorFn){
     })
 
     return undefined
+}
+
+//登录的方法
+export function signIn(userName, passWord, successFn, errorFn){
+   
+    AV.User.logIn(userName, passWord).then(function(loginedUser){
+        let user = getUserFromAVUser(loginedUser)
+        successFn.call(null, user)
+    }, function(error){
+        errorFn.call(null, error)
+    })
+
 }
 
 //解析返回的用户数据

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import '../../css/userDialog.css'
-import {signUp} from './LeanCloud'
+import {signUp,signIn} from './LeanCloud'
 
 export default class UserDialog extends Component{
   constructor(props){
@@ -21,8 +21,24 @@ export default class UserDialog extends Component{
   }
 
   //登录处理方法
-  signIn(e){
-    e.preventDefault();
+  signIn(event){
+    event.preventDefault();
+
+    let {userName, passWord} = this.state.formDate
+
+    let success = (user)=>{
+        // console.log('用户登录成功！！')
+        // console.log(user)
+        this.props.onSignUp.call(null, user)
+    }
+
+    let error = (error)=>{
+        console.log('用户注册失败！！')
+        console.log(error)
+    }
+
+    signIn(userName, passWord, success, error)
+
     console.log('我是登录')
   }
 

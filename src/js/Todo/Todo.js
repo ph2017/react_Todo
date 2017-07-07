@@ -64,6 +64,14 @@ class Todo extends React.Component{
         console.log('todo 的 onSignOut', this.state.user)
     }
 
+    onSignIn(){
+        let stateCopy = JSON.parse(JSON.stringify(this.state))
+        stateCopy.user = {}
+        this.setState(stateCopy)
+
+        console.log('todo 的 onSignIn', this.state.user)
+    }
+
     componentDidUpdate(){
         //组件更新后，保存todoList到localStorage
         // localStorage.save('todoList', this.state.todoList);
@@ -113,7 +121,7 @@ class Todo extends React.Component{
                     {todos}
                 </ol>
                 {/*注册/登录成功，则关闭登录dialog*/}
-                {this.state.user.id ? null : <UserDialog onSignUp={this.onSignUp.bind(this)}/>}
+                {this.state.user.id ? null : <UserDialog onSignUp={this.onSignUp.bind(this)} onSignIn={this.onSignIn.bind(this)}/>}
                 
             </div>
         );
