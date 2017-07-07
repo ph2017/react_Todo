@@ -6,6 +6,14 @@ import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
 import * as localStorage from './lacolStorage';
 
+import AV from 'leancloud-storage';
+var APP_ID = 'Olxk4NWKifF56MesmP8y5mP6-gzGzoHsz';
+var APP_KEY = 'yOOePg1IUofUKlcxpOSmpY4l';
+
+AV.init({
+  appId: APP_ID,
+  appKey: APP_KEY
+});
 
 class Todo extends React.Component{
     constructor(props){
