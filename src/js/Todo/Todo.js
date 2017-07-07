@@ -17,19 +17,34 @@ class Todo extends React.Component{
             ],
             newTodo: ''
         }
+
+        this.addTodo = this.addTodo.bind(this)
+        this.changeTitle = this.changeTitle.bind(this)
     }
 
-    addTodo(todo){
-        // this.state.todoList.push({
-        //     id: new Date().toTimeString,
-        //     title: todo
-        // })
+    addTodo(event){
+        let newTodoList = this.state.todoList;
+        let curDate = new Date();
+        let idx = Math.random().toString().substr(-5);
+        newTodoList.push({
+            id: idx,
+            title: event.target.value
+        })
 
-        // this.setState({
-        //     todoList
-        // })
+        this.setState({
+            todoList: newTodoList,
+            newTodo: ''
+        })
 
-        console.log('我要添加一个todo了!!');
+        // console.log('传递进来的参数：' + event.target.value);
+        // console.log('我要添加一个todo了!!');
+    }
+
+    changeTitle(event){
+        this.setState({
+            newTodo: event.target.value,
+            todoList: this.state.todoList
+        })
     }
 
     render(){
@@ -37,7 +52,7 @@ class Todo extends React.Component{
         return (
             <div className="todoCt">
                 <h1>我的代办：</h1>
-                <TodoInput content={this.state.newTodo} onSubmit={this.addTodo}/> 
+                <TodoInput content={this.state.newTodo} onSubmit={this.addTodo} onChange={this.changeTitle}/> 
                 <TodoItem todoList={this.state.todoList}/>
             </div>
         );
