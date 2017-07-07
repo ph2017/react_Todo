@@ -12,14 +12,15 @@ class Todo extends React.Component{
 
         this.state = {
             todoList: [
-                {id:1, title:'第1个代办任务'},
-                {id:2, title:'第2个代办任务'}
+                {id:1, title:'第1个代办任务', status:'completed'},
+                {id:2, title:'第2个代办任务', status:''}
             ],
             newTodo: ''
         }
 
         this.addTodo = this.addTodo.bind(this)
         this.changeTitle = this.changeTitle.bind(this)
+        this.changeStatus = this.changeStatus.bind(this)
     }
 
     addTodo(event){
@@ -47,13 +48,30 @@ class Todo extends React.Component{
         })
     }
 
+    changeStatus(event, todo){
+        todo.status = todo.status === 'completed' ? '':'completed'
+        this.setState(this.state)
+
+        // console.log('todoList', this.state.todoList)
+    }
+
     render(){
+
+        let todos = this.state.todoList.map((element, idex)=>{
+            return (
+                <li>
+                    <TodoItem todo={element} onToggle={this.changeStatus}/>
+                </li>
+            )
+        })
 
         return (
             <div className="todoCt">
                 <h1>我的代办：</h1>
                 <TodoInput content={this.state.newTodo} onSubmit={this.addTodo} onChange={this.changeTitle}/> 
-                <TodoItem todoList={this.state.todoList}/>
+                <ol>
+                    {todos}
+                </ol>
             </div>
         );
     }
