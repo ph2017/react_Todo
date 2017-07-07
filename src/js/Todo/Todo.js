@@ -4,17 +4,21 @@ import 'reset.css';
 import '../../css/todo.css'
 import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
+import * as localStorage from './lacolStorage';
 
 
 class Todo extends React.Component{
     constructor(props){
         super(props);
 
-        this.state = {
-            todoList: [
+          /**数据例子
+             * [
                 {id:1, title:'第1个代办任务', status:'completed'},
                 {id:2, title:'第2个代办任务', status:''}
-            ],
+            ]
+             */
+        this.state = {
+            todoList: localStorage.load('todoList') || [],
             newTodo: ''
         }
 
@@ -37,6 +41,8 @@ class Todo extends React.Component{
             newTodo: ''
         })
 
+        localStorage.save('todoList', this.state.todoList);
+
         // console.log('传递进来的参数：' + event.target.value);
         // console.log('我要添加一个todo了!!');
     }
@@ -46,18 +52,23 @@ class Todo extends React.Component{
             newTodo: event.target.value,
             todoList: this.state.todoList
         })
+
+        localStorage.save('todoList', this.state.todoList);
     }
 
     changeStatus(event, todo){
         todo.status = todo.status === 'completed' ? '':'completed'
         this.setState(this.state)
 
+        localStorage.save('todoList', this.state.todoList);
         // console.log('todoList', this.state.todoList)
     }
 
     deleteTodo(event, todo){
         todo.deleted = true
         this.setState(this.state)
+
+        localStorage.save('todoList', this.state.todoList);
     }
 
     render(){
