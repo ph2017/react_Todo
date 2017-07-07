@@ -47,9 +47,9 @@ class Todo extends React.Component{
 
     //注册组件的注册处理方法
     onSignUp(user){
-        this.state.user = user
-
-        this.setState(this.state)
+        let stateCopy = JSON.parse(JSON.stringify(this.state))
+        stateCopy.user = user
+        this.setState(stateCopy)
 
         console.log('todo 的 onSignUp', this.state.user)
     }
