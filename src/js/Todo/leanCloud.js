@@ -45,3 +45,10 @@ export function getCurrentUser(){
         return null
     }
 }
+
+//登出的处理方法
+export function signOut(){
+    AV.User.logOut()
+    console.log('我是登出！！')
+    return undefined
+}

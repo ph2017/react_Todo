@@ -5,7 +5,7 @@ import '../../css/todo.css'
 import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
 import UserDialog from './UserDialog';
-import {getCurrentUser} from './LeanCloud';
+import {getCurrentUser, signOut} from './LeanCloud';
 
 class Todo extends React.Component{
     constructor(props){
@@ -55,6 +55,15 @@ class Todo extends React.Component{
         console.log('todo 的 onSignUp', this.state.user)
     }
 
+    onSignOut(){
+        signOut()
+        let stateCopy = JSON.parse(JSON.stringify(this.state))
+        stateCopy.user = {}
+        this.setState(stateCopy)
+
+        console.log('todo 的 onSignOut', this.state.user)
+    }
+
     componentDidUpdate(){
         //组件更新后，保存todoList到localStorage
         // localStorage.save('todoList', this.state.todoList);
@@ -94,6 +103,8 @@ class Todo extends React.Component{
 
         return (
             <div className="todoCt">
+                {/*登出功能按钮*/}
+                {this.state.user.id ? <button className="logoutBtn" onClick={this.onSignOut.bind(this)}>登出</button> : null}
                 <h1>{this.state.user.username}的代办：</h1>
                 <div className="inputWrapper">
                     <TodoInput content={this.state.newTodo} onSubmit={this.addTodo} onChange={this.changeTitle}/> 

@@ -22,3 +22,7 @@
 .todoCt > .todoList> li:nth-child(even){
   background: transparent;
 }
+.todoCt .logoutBtn {
+  float: right;
+  margin-top: 10px;
+}
