@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import '../../css/userDialog.css'
+import {signUp} from './leanCloud'
+
 export default class UserDialog extends Component{
   constructor(props){
     super(props)
@@ -25,8 +27,23 @@ export default class UserDialog extends Component{
   }
 
   //注册处理方法
-  signUp(e){
-    e.preventDefault();
+  signUp(event){
+    event.preventDefault();
+
+    let {userName, passWord} = this.state.formDate
+
+    let success = (user)=>{
+        console.log('用户注册成功！！')
+        console.log(user)
+    }
+
+    let error = (error)=>{
+        console.log('用户注册失败！！')
+        console.log(error)
+    }
+
+    signUp(userName, passWord, success, error)
+
     console.log('我是注册')
   }
 
