@@ -1,0 +1,11 @@
+.ToDoItem {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 5px;
+}
+.ToDoItem .todoTitle {
+    flex-grow: 1;
+    text-align: left;
+    padding: 5px;
+}

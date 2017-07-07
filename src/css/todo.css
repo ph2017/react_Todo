@@ -10,6 +10,12 @@
     min-width: 32em;
     box-shadow: 0 0 1em hsla(0, 0%, 0%, 0.15);
 }
+.todoCt > h1{
+    font-size: 30px;
+    font-weight: bold;
+    text-align: left;
+    padding: 10px 0;
+}
 .todoCt > .todoList> li:nth-child(odd){
   background: #eee;
 }

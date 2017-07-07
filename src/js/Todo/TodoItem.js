@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../css/todoItem.css';
 
 class TodoItem extends React.Component{
 
@@ -19,9 +20,9 @@ class TodoItem extends React.Component{
 
     render(){
         return (
-            <div>
+            <div className="ToDoItem">
                 <input type="checkbox" checked={this.props.todo.status} onChange={this.changeStatus}/>
-                {this.props.todo.title}
+                <span className="todoTitle">{this.props.todo.title}</span>
                 <button onClick={this.deleteTodo} disabled={this.props.todo.deleted}>删除</button>
             </div>
         )
