@@ -75,8 +75,10 @@ class Todo extends React.Component{
         return (
             <div className="todoCt">
                 <h1>我的代办：</h1>
-                <TodoInput content={this.state.newTodo} onSubmit={this.addTodo} onChange={this.changeTitle}/> 
-                <ol>
+                <div className="inputWrapper">
+                    <TodoInput content={this.state.newTodo} onSubmit={this.addTodo} onChange={this.changeTitle}/> 
+                </div>
+                <ol className="todoList">
                     {todos}
                 </ol>
             </div>

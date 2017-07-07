@@ -10,4 +10,9 @@
     min-width: 32em;
     box-shadow: 0 0 1em hsla(0, 0%, 0%, 0.15);
 }
-
+.todoCt > .todoList> li:nth-child(odd){
+  background: #eee;
+}
+.todoCt > .todoList> li:nth-child(even){
+  background: transparent;
+}
