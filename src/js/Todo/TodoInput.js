@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../css/todoInput.css'
 
 class TodoInput extends React.Component{
     
@@ -23,7 +24,7 @@ class TodoInput extends React.Component{
 
     render(){
         return (
-            <input type="text" value={this.props.content} 
+            <input type="text" value={this.props.content} className="TodoInput"
                 onKeyPress={this.submit}
                 onChange={this.changeTitle}/>
         ); 
