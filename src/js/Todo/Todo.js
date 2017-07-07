@@ -17,6 +17,7 @@ class Todo extends React.Component{
             ]
              */
         this.state = {
+            user: {},
             todoList: [],
             newTodo: ''
         }
@@ -42,6 +43,15 @@ class Todo extends React.Component{
 
         // console.log('传递进来的参数：' + event.target.value);
         // console.log('我要添加一个todo了!!');
+    }
+
+    //注册组件的注册处理方法
+    onSignUp(user){
+        this.state.user = user
+
+        this.setState(this.state)
+
+        console.log('todo 的 onSignUp', this.state.user)
     }
 
     componentDidUpdate(){
@@ -83,7 +93,7 @@ class Todo extends React.Component{
 
         return (
             <div className="todoCt">
-                <h1>我的代办：</h1>
+                <h1>{this.state.user.username}的代办：</h1>
                 <div className="inputWrapper">
                     <TodoInput content={this.state.newTodo} onSubmit={this.addTodo} onChange={this.changeTitle}/> 
                 </div>
@@ -91,7 +101,7 @@ class Todo extends React.Component{
                     {todos}
                 </ol>
 
-                <UserDialog/>
+                <UserDialog onSignUp={this.onSignUp.bind(this)}/>
             </div>
         );
     }

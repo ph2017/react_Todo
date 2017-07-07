@@ -33,8 +33,9 @@ export default class UserDialog extends Component{
     let {userName, passWord} = this.state.formDate
 
     let success = (user)=>{
-        console.log('用户注册成功！！')
-        console.log(user)
+        // console.log('用户注册成功！！')
+        // console.log(user)
+        this.props.onSignUp.call(null, user)
     }
 
     let error = (error)=>{
