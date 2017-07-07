@@ -41,10 +41,13 @@ class Todo extends React.Component{
             newTodo: ''
         })
 
-        localStorage.save('todoList', this.state.todoList);
-
         // console.log('传递进来的参数：' + event.target.value);
         // console.log('我要添加一个todo了!!');
+    }
+
+    componentDidUpdate(){
+        //组件更新后，保存todoList到localStorage
+        localStorage.save('todoList', this.state.todoList);
     }
 
     changeTitle(event){
@@ -52,15 +55,12 @@ class Todo extends React.Component{
             newTodo: event.target.value,
             todoList: this.state.todoList
         })
-
-        localStorage.save('todoList', this.state.todoList);
     }
 
     changeStatus(event, todo){
         todo.status = todo.status === 'completed' ? '':'completed'
         this.setState(this.state)
 
-        localStorage.save('todoList', this.state.todoList);
         // console.log('todoList', this.state.todoList)
     }
 
@@ -68,7 +68,6 @@ class Todo extends React.Component{
         todo.deleted = true
         this.setState(this.state)
 
-        localStorage.save('todoList', this.state.todoList);
     }
 
     render(){
