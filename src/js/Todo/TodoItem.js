@@ -5,6 +5,10 @@ class TodoItem extends React.Component{
 
     constructor(props){
         super(props);
+        
+        this.state = {
+            status: this.props.todo.status
+        }
 
         this.changeStatus = this.changeStatus.bind(this);
         this.deleteTodo = this.deleteTodo.bind(this);
@@ -18,10 +22,16 @@ class TodoItem extends React.Component{
         this.props.onDelete(e, this.props.todo)
     }
 
+    componentWillReceiveProps(){
+        this.setState({
+            status: this.props.todo.status
+        })
+    }
+
     render(){
         return (
             <div className="ToDoItem">
-                <input type="checkbox" value={this.props.todo.status || ''} checked={this.props.todo.status} onChange={this.changeStatus}/>
+                <input type="checkbox" value={this.state.status} checked={this.state.status === 'completed'} onChange={this.changeStatus}/>
                 <span className="todoTitle">{this.props.todo.title}</span>
                 <button onClick={this.deleteTodo} disabled={this.props.todo.deleted}>删除</button>
             </div>
