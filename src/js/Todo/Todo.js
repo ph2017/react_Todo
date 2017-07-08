@@ -31,16 +31,11 @@ class Todo extends React.Component{
     }
 
     addTodo(event){
-        // saveTodo({
-        //     title: event.target.value,
-        //     userID: this.state.user.id
-        // }, queryTodoByCondition);
-
+        
         saveTodo({
-            title: event.target.value,
-            userID: this.state.user.id
+            title: event.target.value
         }, function(){
-            queryTodoByCondition({userID: this.state.user.id}, this.renderTodoView.bind(this))
+            queryTodoByCondition({}, this.renderTodoView.bind(this))
 
         }.bind(this));
 
@@ -64,7 +59,7 @@ class Todo extends React.Component{
         this.setState(stateCopy)
 
         //登录后，查询todo数据，之后渲染组件
-        queryTodoByCondition({userID: user.id}, this.renderTodoView.bind(this))
+        queryTodoByCondition({}, this.renderTodoView.bind(this))
 
         console.log('todo 的 onSignUp', this.state.user)
     }
@@ -119,7 +114,7 @@ class Todo extends React.Component{
 
     //组件挂载时调用的生命周期函数
     componentDidMount(){
-        queryTodoByCondition({'userID': this.state.user.id}, this.renderTodoView.bind(this))
+        queryTodoByCondition({}, this.renderTodoView.bind(this))
     }
 
     render(){

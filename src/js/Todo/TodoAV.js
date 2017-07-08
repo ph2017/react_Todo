@@ -15,6 +15,15 @@ export function saveTodo(todo, successFn, errorFn) {
         }
     }
 
+    // 根据文档 https://leancloud.cn/docs/acl-guide.html#单用户权限设置
+    // 这样做就可以让这个 Todo 只被当前用户看到
+    let acl = new AV.ACL()
+    acl.setPublicReadAccess(false) // 注意这里是 false
+    acl.setWriteAccess(AV.User.current(), true)
+    acl.setReadAccess(AV.User.current(), true)
+
+    saveTodo.setACL(acl);
+
     // console.log('要保存的todo：', todo)
     saveTodo.save()
         .then(function (response) {
@@ -23,14 +32,14 @@ export function saveTodo(todo, successFn, errorFn) {
             },
             function (error) {
                 console.error('保存todo失败：', error);
-            }).then(function(response){
-                if(successFn){
-                    // console.log('到底有没有来到这个then？？', response)
-                    // successFn.call(null, {'objectId': response});
-                    successFn();
+            }).then(function (response) {
+            if (successFn) {
+                // console.log('到底有没有来到这个then？？', response)
+                // successFn.call(null, {'objectId': response});
+                successFn();
 
-                }
-            })
+            }
+        })
 
 
 }
@@ -47,34 +56,57 @@ export function queryTodoByCondition(condition, successFn, errorFn) {
             queryArr.push(equalQuery)
         }
     }
-    var query = AV.Query.or.apply(null, queryArr);
 
-    query.find().then(function (response) {
-        // 获取到本地
-        console.log('queryTodoByCondition 查询成功：', response)
-        var todoList = MyUtil().deepCopy(response)
+    var query = null;
+    if (queryArr.length > 0) {
+        //可根据条件查询的查询对象
+        query = AV.Query.and.apply(null, queryArr);
 
-        return todoList
-    }, function (error) {
-        // 异常处理
-        console.error('queryTodoByCondition 查询失败：', error);
-    }).then(function(result){
-        if(successFn){
-            successFn(result);
-        }        
-    });
+        query.find().then(function (response) {
+            // 获取到本地
+            console.log('queryTodoByCondition 查询成功：', response)
+            var todoList = MyUtil().deepCopy(response)
+
+            return todoList
+        }, function (error) {
+            // 异常处理
+            console.error('queryTodoByCondition 查询失败：', error);
+        }).then(function (result) {
+            if (successFn) {
+                successFn(result);
+            }
+        });
+    } else {
+        //不根据条件查询的查询对象
+        query = new AV.Query('Todo')
+
+        query.find().then((response) => {
+            console.log('queryTodoByCondition 查询成功：', response)
+            let array = response.map((t) => {
+                return {
+                    objectId: t.id,
+                    ...t.attributes
+                }
+            })
+            successFn.call(null, array)
+        }, (error) => {
+            errorFn && errorFn.call(null, error)
+        })
+    }
+
+
 
 }
 
 //更新todo的方法
-export function updateTodo(todo){
+export function updateTodo(todo) {
     // 第一个参数是 className，第二个参数是 objectId
     var todoSave = AV.Object.createWithoutData('Todo', todo.objectId);
     // 修改属性
     for (var key in todo) {
         if (todo.hasOwnProperty(key)) {
             var element = todo[key];
-            if(key !== 'objectId'){
+            if (key !== 'objectId') {
                 todoSave.set(key, element);
             }
         }
