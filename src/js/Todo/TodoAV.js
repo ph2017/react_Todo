@@ -26,7 +26,9 @@ export function saveTodo(todo, successFn, errorFn) {
             }).then(function(response){
                 if(successFn){
                     console.log('到底有没有来到这个then？？', response)
-                    successFn.call(null, {'objectId': response});
+                    // successFn.call(null, {'objectId': response});
+                    successFn();
+                    
                 }
             })
 

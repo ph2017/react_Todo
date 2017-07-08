@@ -31,33 +31,18 @@ class Todo extends React.Component{
     }
 
     addTodo(event){
-        // let newTodoList = this.state.todoList;
-        // let idx = Math.random().toString().substr(-5);
-        // newTodoList.push({
-        //     id: idx,
-        //     title: event.target.value
-        // })
-
-        // this.setState({
-        //     todoList: newTodoList,
-        //     newTodo: ''
-        // })
-
         // saveTodo({
         //     title: event.target.value,
         //     userID: this.state.user.id
-        // }, function(){
-        //     debugger
-        //     //根据当前登录用户的userID，查询所有todo数据
-        //     queryTodoByCondition({
-        //         userID: this.user.id
-        //     }, this.renderTodoView.bind(this))
-        // });
+        // }, queryTodoByCondition);
 
         saveTodo({
             title: event.target.value,
             userID: this.state.user.id
-        }, queryTodoByCondition);
+        }, function(){
+            queryTodoByCondition({userID: this.state.user.id}, this.renderTodoView.bind(this))
+
+        }.bind(this));
 
         console.log('传递进来的参数：' + event.target.value);
         console.log('我要添加一个todo了!!');
@@ -68,6 +53,7 @@ class Todo extends React.Component{
         console.log('到底有没有调用？？？', todoList)
         let stateCopy = JSON.parse(JSON.stringify(this.state))
         stateCopy.todoList = todoList
+        stateCopy.newTodo = ''
         this.setState(stateCopy)
     }
 
@@ -84,6 +70,9 @@ class Todo extends React.Component{
         signOut()
         let stateCopy = JSON.parse(JSON.stringify(this.state))
         stateCopy.user = {}
+        //登出时，清空todoList，newTodo
+        stateCopy.todoList = null
+        stateCopy.newTodo = ''
         this.setState(stateCopy)
 
         console.log('todo 的 onSignOut', this.state.user)
