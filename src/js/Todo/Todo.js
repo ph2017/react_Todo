@@ -6,7 +6,7 @@ import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
 import UserDialog from './UserDialog';
 import {getCurrentUser, signOut} from './LeanCloud';
-import {saveTodo, queryTodoByCondition} from './TodoAV';
+import {saveTodo, queryTodoByCondition, updateTodo} from './TodoAV';
 
 class Todo extends React.Component{
     constructor(props){
@@ -97,12 +97,23 @@ class Todo extends React.Component{
         todo.status = todo.status === 'completed' ? '':'completed'
         this.setState(this.state)
 
+        //调用接口，把status字段更新到云端
+        updateTodo({
+            objectId: todo.objectId,
+            status: todo.status
+        })
         // console.log('todoList', this.state.todoList)
     }
 
     deleteTodo(event, todo){
         todo.deleted = true
         this.setState(this.state)
+
+        //调用接口方法，把删除字段更新到云端
+        updateTodo({
+            objectId: todo.objectId,
+            deleted: todo.deleted
+        })
 
     }
 

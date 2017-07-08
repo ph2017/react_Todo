@@ -28,7 +28,7 @@ export function saveTodo(todo, successFn, errorFn) {
                     console.log('到底有没有来到这个then？？', response)
                     // successFn.call(null, {'objectId': response});
                     successFn();
-                    
+
                 }
             })
 
@@ -64,6 +64,23 @@ export function queryTodoByCondition(condition, successFn, errorFn) {
         }        
     });
 
+}
+
+//更新todo的方法
+export function updateTodo(todo){
+    // 第一个参数是 className，第二个参数是 objectId
+    var todoSave = AV.Object.createWithoutData('Todo', todo.objectId);
+    // 修改属性
+    for (var key in todo) {
+        if (todo.hasOwnProperty(key)) {
+            var element = todo[key];
+            if(key !== 'objectId'){
+                todoSave.set(key, element);
+            }
+        }
+    }
+    // 保存到云端
+    todoSave.save();
 }
 
 //批量保存todo数据到云端
