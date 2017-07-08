@@ -21,7 +21,7 @@ class TodoItem extends React.Component{
     render(){
         return (
             <div className="ToDoItem">
-                <input type="checkbox" checked={this.props.todo.status} onChange={this.changeStatus}/>
+                <input type="checkbox" value={this.props.todo.status || ''} checked={this.props.todo.status} onChange={this.changeStatus}/>
                 <span className="todoTitle">{this.props.todo.title}</span>
                 <button onClick={this.deleteTodo} disabled={this.props.todo.deleted}>删除</button>
             </div>

@@ -15,7 +15,7 @@ export function saveTodo(todo, successFn, errorFn) {
         }
     }
 
-    console.log('要保存的todo：', todo)
+    // console.log('要保存的todo：', todo)
     saveTodo.save()
         .then(function (response) {
                 console.log('保存todo成功  objectId is' + response.id)
@@ -25,7 +25,7 @@ export function saveTodo(todo, successFn, errorFn) {
                 console.error('保存todo失败：', error);
             }).then(function(response){
                 if(successFn){
-                    console.log('到底有没有来到这个then？？', response)
+                    // console.log('到底有没有来到这个then？？', response)
                     // successFn.call(null, {'objectId': response});
                     successFn();
 
