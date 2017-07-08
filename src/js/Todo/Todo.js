@@ -6,6 +6,7 @@ import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
 import UserDialog from './UserDialog';
 import {getCurrentUser, signOut} from './LeanCloud';
+import {saveTodo, queryTodoByCondition} from './TodoAV';
 
 class Todo extends React.Component{
     constructor(props){
@@ -30,20 +31,44 @@ class Todo extends React.Component{
     }
 
     addTodo(event){
-        let newTodoList = this.state.todoList;
-        let idx = Math.random().toString().substr(-5);
-        newTodoList.push({
-            id: idx,
-            title: event.target.value
-        })
+        // let newTodoList = this.state.todoList;
+        // let idx = Math.random().toString().substr(-5);
+        // newTodoList.push({
+        //     id: idx,
+        //     title: event.target.value
+        // })
 
-        this.setState({
-            todoList: newTodoList,
-            newTodo: ''
-        })
+        // this.setState({
+        //     todoList: newTodoList,
+        //     newTodo: ''
+        // })
 
-        // console.log('传递进来的参数：' + event.target.value);
-        // console.log('我要添加一个todo了!!');
+        // saveTodo({
+        //     title: event.target.value,
+        //     userID: this.state.user.id
+        // }, function(){
+        //     debugger
+        //     //根据当前登录用户的userID，查询所有todo数据
+        //     queryTodoByCondition({
+        //         userID: this.user.id
+        //     }, this.renderTodoView.bind(this))
+        // });
+
+        saveTodo({
+            title: event.target.value,
+            userID: this.state.user.id
+        }, queryTodoByCondition);
+
+        console.log('传递进来的参数：' + event.target.value);
+        console.log('我要添加一个todo了!!');
+    }
+
+    //重新渲染todo的方法
+    renderTodoView(todoList){
+        console.log('到底有没有调用？？？', todoList)
+        let stateCopy = JSON.parse(JSON.stringify(this.state))
+        stateCopy.todoList = todoList
+        this.setState(stateCopy)
     }
 
     //注册组件的注册处理方法
@@ -89,17 +114,25 @@ class Todo extends React.Component{
 
     }
 
-    render(){
+    //组件挂载时调用的生命周期函数
+    componentDidMount(){
+        queryTodoByCondition({'userID': this.state.user.id}, this.renderTodoView.bind(this))
+    }
 
-        let todos = this.state.todoList
-            .filter((item)=> !item.deleted)
-            .map((element, idex)=>{
-            return (
-                <li key={element.id}>
-                    <TodoItem todo={element} onToggle={this.changeStatus} onDelete={this.deleteTodo}/>
-                </li>
-            )
-        })
+    render(){
+        let todos = null
+        if(this.state.todoList){
+            todos = this.state.todoList
+                .filter((item)=> !item.deleted)
+                .map((element, idex)=>{
+                return (
+                    <li key={element.objectId}>
+                        <TodoItem todo={element} onToggle={this.changeStatus} onDelete={this.deleteTodo}/>
+                    </li>
+                )
+            })
+        }
+        
 
         return (
             <div className="todoCt">
