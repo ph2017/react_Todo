@@ -22,6 +22,7 @@ class TodoItem extends React.Component{
         this.props.onDelete(e, this.props.todo)
     }
 
+    //随着父组件传入的props更新state
     componentWillReceiveProps(){
         this.setState({
             status: this.props.todo.status
