@@ -63,6 +63,9 @@ class Todo extends React.Component{
         stateCopy.user = user
         this.setState(stateCopy)
 
+        //登录后，查询todo数据，之后渲染组件
+        queryTodoByCondition({userID: user.id}, this.renderTodoView.bind(this))
+
         console.log('todo 的 onSignUp', this.state.user)
     }
 
