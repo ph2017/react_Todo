@@ -1,0 +1,65 @@
+.todoItemPanel {
+    position: relative;
+
+    .panel-heading {
+        padding: 20px 15px;
+    }
+
+    .todoTitle-ct {
+        //是否已完成的checkbox
+        .todoItemCheck {
+            text-align: center;
+            width: 40px;
+            height: auto;
+            position: absolute;
+            top: 10px;
+            bottom: 0;
+            left: 14px;
+            margin: auto 0;
+            border: none;
+            outline: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            //checkbox的focus状态的outline
+            &:focus {
+                outline: none;
+            }
+        }
+        //todo标题
+        .todoItemCheck + span {
+        margin-left: 33px;
+        }
+
+        .todoItemCheck::before {
+            content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#777" stroke-width="3"/></svg>');
+        }
+
+        .todoItemCheck:checked:before {
+            content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#bddad5" stroke-width="3"/><path fill="#5dc2af" d="M72 25L42 71 27 56l-4 4 20 20 34-52z"/></svg>');
+        }
+    }
+
+    .function-group {
+
+        position: absolute;
+        right: 25px;
+        bottom: 25px;
+
+        .function-item {
+            display: inline-block;
+            margin-left: 10px;
+            cursor: pointer;
+            opacity: .7;
+            font-size: 16px;
+
+            &:hover {
+                opacity: 1; 
+            }
+        }
+    }
+
+    .panel-body {
+        color:#777;
+        font-size: 14px;
+    }
+}
