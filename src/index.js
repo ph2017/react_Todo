@@ -4,7 +4,11 @@ import './index.css';
 // import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 // import Welcome from './Welcome';
-import Todo from './js/Todo/Todo';
+import Todo from './js/Todo/components/Todo';
+
+import ToDoContainer from './js/Todo/components/ToDoContainer'
+
+
 
 // ReactDOM.render(<App />, document.getElementById('root'));
 /*ReactDOM.render( < h1 > Hello, world! < /h1> , document.getElementById('root'));
@@ -12,4 +16,8 @@ import Todo from './js/Todo/Todo';
 
 // ReactDOM.render( <Welcome name="react component!"/> , document.getElementById('root'));
 
-ReactDOM.render( <Todo /> , document.getElementById('root'));
+// ReactDOM.render( <Todo /> , document.getElementById('root'));
+
+
+
+ReactDOM.render( <ToDoContainer /> , document.getElementById('root'));

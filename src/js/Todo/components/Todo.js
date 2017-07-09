@@ -1,7 +1,7 @@
 import React from 'react';
 import 'normalize.css';
 import 'reset.css';
-import '../../css/todo.css'
+import '../../../css/todo.css'
 import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
 import UserDialog from './UserDialog';

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import '../../css/userDialog.css'
+import '../../../css/userDialog.css'
 import {signUp, signIn, getErrorCodeMessage} from './LeanCloud'
 
 export default class UserDialog extends Component{

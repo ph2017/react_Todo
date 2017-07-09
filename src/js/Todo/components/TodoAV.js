@@ -1,5 +1,5 @@
 import AV from './LeanCloud'
-import MyUtil from './Util'
+import MyUtil from '../Util'
 
 //云端数据库 Todo表的操作对象
 var TodoAV = AV.Object.extend('Todo')
