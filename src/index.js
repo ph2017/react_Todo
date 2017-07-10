@@ -7,6 +7,7 @@ import registerServiceWorker from './registerServiceWorker';
 import Todo from './js/Todo/components/Todo';
 
 import ToDoContainer from './js/Todo/components/ToDoContainer'
+import './css/media.scss'
 
 
 

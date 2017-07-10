@@ -1,8 +1,12 @@
+@import "./basic.scss";
 .sidebar {
-    position: absolute;
+    display: block;
+    position: fixed;
     bottom: 0;
     top: 0;
     background-color: #ccc;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+;
 
     .user-avatar {
         padding: 15px 5px;
@@ -47,5 +51,34 @@
                 }
             }
         }
+    }
+
+    .list-group-item-primary {
+        color: #fff;
+        background-color: $primary-color;
+    }
+}
+
+//移动端导航栏样式
+.mobile-bar{
+    display: none;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    top: 0;
+    background-color: $primary-color;
+    color: #fff;
+    font-size: 23px;
+    text-align: center;
+    line-height: 50px;
+    z-index: 999;
+
+    .mobile-bar-toggle {
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        top: 2px;
+        left: 12px;
+        color: #fff;
     }
 }

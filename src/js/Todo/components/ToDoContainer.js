@@ -9,7 +9,7 @@ class ToDoContainer extends React.Component{
 
     render(){
         return (
-            <div className="container">
+            <div className="container-fluid">
                 <div className="row">
                     <Sidebar></Sidebar>
                     <ToDoMainContainer></ToDoMainContainer>

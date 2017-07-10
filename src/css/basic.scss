@@ -1,0 +1,19 @@
+$danger-color: #EDD2D2;
+$danger-font-color: #AA4543;
+$warning-color: #FBF5D8;
+$warning-font-color: #8A6D3B;
+$success-color: #DFF0D8;
+$success-font-color: #3C763D;
+$info-color: #D9EDF7;
+$info-font-color: #31708F;
+$primary-color: #337AB7;
+
+$screen-sm-min: 768px;
+$screen-md-min: 992px;
+$screen-lg-min: 1200px;
+
+.text-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

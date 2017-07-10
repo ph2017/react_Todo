@@ -1,11 +1,11 @@
 body {
   margin: 0;
-  background: #ddd;
+  background: #fff;
   padding: 0;
 }
 
-#root {
+/*#root {
   display: flex;
   justify-content: center;
   min-height: 100vh;
-}
+}*/
