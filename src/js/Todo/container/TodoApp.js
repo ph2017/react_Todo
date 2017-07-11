@@ -11,7 +11,7 @@ class TodoApp extends React.Component{
 
     render(){
         //通过react-redux的connect注入进来的props
-        const {dispatch, visibileTodos, visibilityFilter, todoPriorityMenu, isMobileSideBarDisplay} = this.props
+        const {dispatch, visibileTodos, visibilityFilter, todoPriorityMenu, isMobileSideBarDisplay } = this.props
         
         {/*todoPriorityMenu 表示当前显示优先级子菜单的todo的id*/}
         let TodoItems = visibileTodos.map(item => {
@@ -33,6 +33,9 @@ class TodoApp extends React.Component{
                     <Sidebar mobileSideBarDisplay={isMobileSideBarDisplay} 
                         onDisplayToggle={(isMobileSideBarDisplay) => 
                             dispatch(mobileSideBarDisplay(isMobileSideBarDisplay))
+                        }
+                        onVisibilityFilterChange={(visibaleFilter) => 
+                            dispatch(setVisibilityFilter(visibaleFilter))
                         }>
                     </Sidebar>
                     <div className="col-sm-9 col-md-9 col-xs-12 todoMainCt"> 
@@ -48,6 +51,7 @@ class TodoApp extends React.Component{
         )
     }
 }
+
 
 TodoApp.propTypes = {
   visibleTodos: PropTypes.arrayOf(PropTypes.shape({
@@ -73,15 +77,16 @@ function selectTodos(todos, filter) {
     case VisibilityFilter.SHOW_ALL:
       return todos
     default:
-     //根据todo.priority过滤
-     return todos.filter(todo => todo.priority === filter)
+     //根据todo.priority过滤,把filter转换成数字再比较
+     return todos.filter(todo => todo.priority === parseInt(filter) )
   }
 }
 
 //return要注入到组件的props
 const mapStateToProps = (state, ownProps) => {
   return {
-    visibileTodos: selectTodos(state.todos, state.visibilityFilter),
+    //react-route会自动为组件注入match.params.filter，这个参数是在<Route path="/:filter">这里设置的
+    visibileTodos: selectTodos(state.todos, ownProps.match.params.filter), //selectTodos(state.todos, state.visibilityFilter),
     visibilityFilter: state.visibilityFilter,
     todoPriorityMenu: state.todoPriorityMenu,
     isMobileSideBarDisplay: state.isMobileSideBarDisplay

@@ -14,6 +14,7 @@ import  TodoAppReducer  from './js/Todo/reducer/TodoAppReducer'
 import TodoApp from './js/Todo/container/TodoApp'
 import { addTodo } from './js/Todo/action/action'
 import MyUtils from './js/Todo/Util'
+import Root from './js/Todo/components/Root'
 import './css/media.scss'
 
 
@@ -35,8 +36,12 @@ let unsubscribe = store.subscribe(() =>
 )
 store.dispatch(addTodo({title:'测试1', id: MyUtils.getRandom(0, 99999) }))
 
-ReactDOM.render(
+/*ReactDOM.render(
          <Provider store={store}>
             <TodoApp/>
          </Provider>, 
+        document.getElementById('root'));*/
+
+ReactDOM.render(
+         <Root store={store}/>,
         document.getElementById('root'));

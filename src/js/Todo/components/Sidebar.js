@@ -1,5 +1,5 @@
 import React from 'react'
-// import {Navbar, NavItem, Brand, Header, NavDropdown,MenuItem,Nav } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import '../../../css/sideBar.scss'
 // import '../../../imgs/menu.png'
 
@@ -44,11 +44,15 @@ class Sidebar extends React.Component{
               </div>
 
               <ul className="list-group sidebar-item-group">
-                <li className="list-group-item list-group-item-primary sidebar-item"><a href="#SHOW_ALL">全部</a></li>
-                <li className="list-group-item list-group-item-danger sidebar-item"><a href="#1">紧急</a></li>
-                <li className="list-group-item list-group-item-warning sidebar-item"><a href="#2">也挺紧急</a></li>
-                <li className="list-group-item list-group-item-info sidebar-item"><a href="#3">一般</a></li>
-                <li className="list-group-item list-group-item-success sidebar-item"><a href="#4">已完成</a></li>
+                
+                <li className="list-group-item list-group-item-primary sidebar-item">
+                  {/*<a href="#SHOW_ALL">全部</a>*/}
+                  <Link to="/SHOW_ALL">全部</Link>
+                </li>
+                <li className="list-group-item list-group-item-danger sidebar-item"><Link to="/1">紧急</Link></li>
+                <li className="list-group-item list-group-item-warning sidebar-item"><Link to="/2">也挺紧急</Link></li>
+                <li className="list-group-item list-group-item-info sidebar-item"><Link to="/3">一般</Link></li>
+                <li className="list-group-item list-group-item-success sidebar-item"><Link to="/4">已完成</Link></li>
               </ul>
             </div>
           </div>
