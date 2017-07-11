@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { ADD_TODO, DELETE_TODO, PRIORITY_TODO, SET_VISIBILITY_FILTER, VisibilityFilter} from '../action/action'
+import { ADD_TODO, DELETE_TODO, PRIORITY_TODO, SET_VISIBILITY_FILTER, SET_PRIORITY_MENU_DISPLAY, SET_MOBILE_SIDE_MENU_DISPLAY, VisibilityFilter} from '../action/action'
 const { SHOW_ALL } = VisibilityFilter
 
 /**
@@ -15,6 +15,7 @@ const { SHOW_ALL } = VisibilityFilter
                 ...state,
                 {
                     title: action.title,
+                    id: action.id,
                     priority: 3
                 }
             ]
@@ -26,8 +27,9 @@ const { SHOW_ALL } = VisibilityFilter
         case PRIORITY_TODO:
             return [...state].map(
                 (item, index) => {
-                    if(item.objectId === action.id){
-                        item.pripority = action.pripority
+                    
+                    if(item.objectId === action.id || item.id === action.id){
+                        item.priority = action.priority
                     }
 
                     return item
@@ -53,10 +55,52 @@ function visibilityFilter(state=SHOW_ALL, action){
     }
 }
 
+/**
+ * 
+ * @param {传入store中的toDoPriorityMenu作为参数} state 
+ * @param {传入action作为参数} action 
+ */
+function todoPriorityMenu(state='', action){
+    switch(action.type){
+
+        case SET_PRIORITY_MENU_DISPLAY: 
+            if(state === ''){
+                return action.id || ''
+            }else if(state === action.id){
+                //如果action.id与之前的相同，则返回’‘，表示不展示优先级菜单
+                return ''
+            }else {
+                 //如果action.id与之前的不相同，则返回action.id，表示展示新选中的优先级菜单
+                return action.id
+            }
+        
+        default:
+            return state
+    }
+}
+
+/**
+ * 
+ * @param {传入store中的isMobileSideBarDisplay作为参数} state 
+ * @param {传入action作为参数} action 
+ */
+function mobileSideBarDisplay(state=false, action){
+    
+    switch(action.type){
+        case SET_MOBILE_SIDE_MENU_DISPLAY:
+            return action.isDisplay
+
+        default: 
+            return state
+    }
+}
+
 //使用combineReducers合并所有reducer
 const TodoAppReducer = combineReducers({
     todos,
-    visibilityFilter
+    visibilityFilter,
+    todoPriorityMenu,
+    isMobileSideBarDisplay: mobileSideBarDisplay
     //上面的写法等价于下面这种写法：
     //todos: todos(state.todos, action),
     //visibilityFilter: visibilityFilter(state.visibilityFilter, action)

@@ -13,6 +13,7 @@ import { Provider } from 'react-redux'
 import  TodoAppReducer  from './js/Todo/reducer/TodoAppReducer'
 import TodoApp from './js/Todo/container/TodoApp'
 import { addTodo } from './js/Todo/action/action'
+import MyUtils from './js/Todo/Util'
 import './css/media.scss'
 
 
@@ -32,7 +33,7 @@ let store = createStore(TodoAppReducer)
 let unsubscribe = store.subscribe(() =>
   console.log('监听store的state,当前state:',store.getState())
 )
-store.dispatch(addTodo('测试1'))
+store.dispatch(addTodo({title:'测试1', id: MyUtils.getRandom(0, 99999) }))
 
 ReactDOM.render(
          <Provider store={store}>

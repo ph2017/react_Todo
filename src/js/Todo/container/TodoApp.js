@@ -1,29 +1,45 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import {ADD_TODO, DELETE_TODO, PRIORITY_TODO, SET_VISIBILITY_FILTER, VisibilityFilter} from '../action/action'
+import {addTodo, priorityTodo, todoPriorityMenuDisplay, mobileSideBarDisplay, setVisibilityFilter, ADD_TODO, DELETE_TODO, PRIORITY_TODO, SET_VISIBILITY_FILTER, VisibilityFilter} from '../action/action'
 import {Panel} from 'react-bootstrap'
 import Sidebar from '../components/Sidebar'
 import ToDoItemBoot from '../components/ToDoItemBoot'
+import AddTodo from '../components/AddTodo'
 import '../../../css/todoMainContainer.scss'
 
 class TodoApp extends React.Component{
 
     render(){
         //通过react-redux的connect注入进来的props
-        const {dispatch, visibileTodos, visibilityFilter} = this.props
+        const {dispatch, visibileTodos, visibilityFilter, todoPriorityMenu, isMobileSideBarDisplay} = this.props
         
+        {/*todoPriorityMenu 表示当前显示优先级子菜单的todo的id*/}
         let TodoItems = visibileTodos.map(item => {
-            return (
-                <ToDoItemBoot todo={item}/>
+            return (  
+                <ToDoItemBoot todo={item} todoPriorityMenu={todoPriorityMenu}
+                    onPriortyChange={(id, priority) => 
+                        dispatch(priorityTodo(id, priority)) 
+                    
+                    }
+                    onPriorityMenuShow={(id) => 
+                        dispatch(todoPriorityMenuDisplay(id))
+                    } />
             )
         })
 
         return (
             <div className="container-fluid">
                 <div className="row">
-                    <Sidebar></Sidebar>
+                    <Sidebar mobileSideBarDisplay={isMobileSideBarDisplay} 
+                        onDisplayToggle={(isMobileSideBarDisplay) => 
+                            dispatch(mobileSideBarDisplay(isMobileSideBarDisplay))
+                        }>
+                    </Sidebar>
                     <div className="col-sm-9 col-md-9 col-xs-12 todoMainCt"> 
                         <Panel header={'我是Panel的title' || this.props.title}>
+                            <AddTodo onSubmit={(todoObj) => 
+                                dispatch(addTodo(todoObj))
+                            } />
                             {TodoItems}
                         </Panel>
                     </div> 
@@ -66,7 +82,9 @@ function selectTodos(todos, filter) {
 const mapStateToProps = (state, ownProps) => {
   return {
     visibileTodos: selectTodos(state.todos, state.visibilityFilter),
-    visibilityFilter: state.visibilityFilter
+    visibilityFilter: state.visibilityFilter,
+    todoPriorityMenu: state.todoPriorityMenu,
+    isMobileSideBarDisplay: state.isMobileSideBarDisplay
   }
 }
 
