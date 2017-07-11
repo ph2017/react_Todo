@@ -18,7 +18,7 @@ class ToDoItemBoot extends React.Component {
 
     }
 
-    //根据优先级生成对应的class
+    //根据优先级生成对应的class 1:紧急 2:挺紧急 3:一般 4:已完成
     getPriorityClass(priority) {
         const priorityClass = {
             '1': 'danger',
@@ -58,8 +58,7 @@ class ToDoItemBoot extends React.Component {
     //改变完成状态的处理方法
     changeCompleted(event) {
         let copyState = MyUtil().deepCopy(this.state)
-        copyState.todo.status =  copyState.todo.status ? '':'completed'
-        copyState.todo.priority = copyState.todo.status === '' ? '3':'4'
+        copyState.todo.priority = copyState.todo.priority === '4' ? '3':'4'
         this.setState(copyState)
     }
 
@@ -69,7 +68,7 @@ class ToDoItemBoot extends React.Component {
                 <Panel header={
                         <div className="todoTitle-ct"> 
                             <input type="checkbox" className="todoItemCheck" checked={this.state.todo.priority === '4'} onChange={this.changeCompleted.bind(this)}/> 
-                            <span>Todo的标题</span>  
+                            <span>{ this.props.todo.title }</span>  
                         </div>
                     } bsStyle={this.getPriorityClass(this.state.todo.priority)}>
 

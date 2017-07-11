@@ -20,8 +20,8 @@ export const VisibilityFilter = {
  * action 创建函数
  */
 
-export function addTodo(text){
-    return {type: ADD_TODO, text}
+export function addTodo(title){
+    return {type: ADD_TODO, title}
 }
 
 export function priorityTodo(id, priority) {
