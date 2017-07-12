@@ -54,6 +54,9 @@ class ToDoItemBoot extends React.Component {
         // let copyState = MyUtils.deepCopy(this.state)
         // copyState.todo.priority = copyState.todo.priority === '4' ? '3':'4'
         // this.setState(copyState)
+        //当前todo的priority为4的话，则改为3，否则改为4
+        let curPriority = this.props.todo.priority === 4 ? 3 : 4
+        this.props.onPriortyChange.call(null, this.props.todo.id, curPriority)
     }
 
     render() {
@@ -61,8 +64,8 @@ class ToDoItemBoot extends React.Component {
             <div className="col-sm-12 col-md-12 todoItemPanel"> 
                 <Panel header={
                         <div className="todoTitle-ct"> 
-                            <input type="checkbox" className="todoItemCheck" checked={this.props.todo.priority === '4'} onChange={this.changeCompleted.bind(this)}/> 
-                            <span>{ this.props.todo.title }</span>  
+                            <input type="checkbox" className="todoItemCheck" checked={this.props.todo.priority === 4} onChange={this.changeCompleted.bind(this)}/> 
+                            <span className={ this.props.todo.priority === 4 ? 'text-lineThrough':'' } >{ this.props.todo.title }</span>  
                         </div>
                     } bsStyle={this.getPriorityClass(this.props.todo.priority)}>
 
