@@ -8,8 +8,10 @@ import registerServiceWorker from './registerServiceWorker';
 
 // import ToDoContainer from './js/Todo/components/ToDoContainer'
 
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
+import thunkMiddleware from 'redux-thunk'
+import createLogger from 'redux-logger'
 import  TodoAppReducer  from './js/Todo/reducer/TodoAppReducer'
 import TodoApp from './js/Todo/container/TodoApp'
 import { addTodo } from './js/Todo/action/action'
@@ -28,12 +30,17 @@ import './css/media.scss'
 
 
 //通过createStore，传入reducer参数，创建一个唯一的全局store
-let store = createStore(TodoAppReducer)
+let store = createStore(TodoAppReducer,
+        applyMiddleware(
+                thunkMiddleware,
+                createLogger
+        )
+)
 
 //测试代码
-let unsubscribe = store.subscribe(() =>
-  console.log('监听store的state,当前state:',store.getState())
-)
+// let unsubscribe = store.subscribe(() =>
+//   console.log('监听store的state,当前state:',store.getState())
+// )
 store.dispatch(addTodo({title:'测试1', id: MyUtils.getRandom(0, 99999) }))
 
 /*ReactDOM.render(
