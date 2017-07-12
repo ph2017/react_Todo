@@ -45,7 +45,7 @@ class Sidebar extends React.Component{
 
               <ul className="list-group sidebar-item-group">
                 
-                <li className="list-group-item list-group-item-primary sidebar-item">
+                <li className="list-group-item sidebar-item">
                   {/*<a href="#SHOW_ALL">全部</a>*/}
                   <Link to="/SHOW_ALL">全部</Link>
                 </li>

@@ -1,5 +1,8 @@
 import { combineReducers } from 'redux'
-import { ADD_TODO, DELETE_TODO, PRIORITY_TODO, SET_VISIBILITY_FILTER, SET_PRIORITY_MENU_DISPLAY, SET_MOBILE_SIDE_MENU_DISPLAY, VisibilityFilter, QUERY_REQUEST_POSTS, QUERY_RECEIVE_POSTS} from '../action/action'
+import { ADD_TODO, DELETE_TODO, PRIORITY_TODO, SET_VISIBILITY_FILTER, 
+            SET_PRIORITY_MENU_DISPLAY, SET_MOBILE_SIDE_MENU_DISPLAY, VisibilityFilter, 
+            QUERY_REQUEST_POSTS, QUERY_RECEIVE_POSTS, SAVE_REQUEST_POSTS, SAVE_RECEIVE_POSTS,
+            MODIFY_TODO, EDIT_TODO} from '../action/action'
 const { SHOW_ALL } = VisibilityFilter
 
 /**
@@ -20,6 +23,21 @@ const { SHOW_ALL } = VisibilityFilter
                 }
             ]
 
+        case MODIFY_TODO: 
+            return [...state].map(
+                (item, index) => {
+                    //更新state中的action.todoObj
+                    if(item.objectId === action.todoObj.objectId){
+                        for (let key in action.todoObj) {
+                            if (action.todoObj.hasOwnProperty(key)) {
+                                let val = action.todoObj[key];
+                                item[key] = val
+                            }
+                        }
+                    }
+                    return item
+                })
+
         case DELETE_TODO:
             //遍历todoList，返回objectId != action.id 的todo，则可以删除某个todo
             return [...state].filter((item) => {return item.objectId !== action.id})
@@ -38,6 +56,18 @@ const { SHOW_ALL } = VisibilityFilter
         //处理从云端查询到的todo数据，把todo数据放入state
         case QUERY_RECEIVE_POSTS: 
             return [...(action.result)]
+        
+        //处理从云端查询到的todo数据，把todo数据放入state
+        case SAVE_RECEIVE_POSTS: 
+            return [...state].map(
+                (item, index) => {
+                    //把保存的todo的objectId字段更新
+                    if(item.id === action.whichTodo.id){
+                        item.objectId = action.result
+                    }
+                    return item
+                })
+        
 
         default: 
             return state
@@ -99,25 +129,49 @@ function mobileSideBarDisplay(state=false, action){
     }
 }
 /**
- * 查询，添加，修改云端todo的处理方法
- * @param {处理state里的isQueringTodo, todos} state 
+ * 查询云端todo的处理方法,设置state.isQueringTodo
+ * @param {处理state里的isQueringTodo} state 
  * @param {传入action作为参数} action 
  */
-function todoCloudOperation(state={
-    isQueringTodo: false
-}, action) {
+function queryCloudOperation(state=false, action) {
     switch(action.type){
         
         case QUERY_REQUEST_POSTS:
-            return Object.assign({}, state, {
-                isQueringTodo: true
-            })
+            return true
         
         case QUERY_RECEIVE_POSTS:
-            return Object.assign({}, state, {
-                isQueringTodo: false
-            })
+            return false
 
+        default: 
+            return state
+    }
+}
+
+/**
+ * 添加，修改 云端todo的处理方法,设置state.isSavingTodo
+ * @param {处理state里的isQueringTodo, todos} state 
+ * @param {传入action作为参数} action 
+ */
+function saveCloudOperation(state=false, action){
+    switch(action.type) {
+        case SAVE_REQUEST_POSTS:
+            return false
+        case SAVE_RECEIVE_POSTS:
+            return false
+        default:
+            return state
+    }
+}
+
+/**
+ * 编辑中todo的处理方法
+ * @param {正在编辑中的todo的objectId} state 
+ * @param {*} action 
+ */
+function editingTodoId(state='', action){
+    switch(action.type) {
+        case EDIT_TODO:
+            return action.id
         default: 
             return state
     }
@@ -129,8 +183,9 @@ const TodoAppReducer = combineReducers({
     visibilityFilter,
     todoPriorityMenu,
     isMobileSideBarDisplay: mobileSideBarDisplay,
-    isQueringTodo: todoCloudOperation,
-
+    isQueringTodo: queryCloudOperation,
+    isSavingTodo: saveCloudOperation,
+    editingTodoId
     //上面的写法等价于下面这种写法：
     //todos: todos(state.todos, action),
     //visibilityFilter: visibilityFilter(state.visibilityFilter, action)

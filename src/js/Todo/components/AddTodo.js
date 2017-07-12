@@ -10,7 +10,11 @@ export default class AddTodo extends React.Component {
             console.log('Enter')
             let target = e.target
             //调用传递进来的处理方法
-            this.props.onSubmit({title: target.value, id: MyUtils.getRandom(0, 99999)})
+            this.props.onSubmit({
+                title: target.value, 
+                id: MyUtils.getRandom(0, 99999),
+                priority: 3
+            })
             target.value = ''
         }
     }

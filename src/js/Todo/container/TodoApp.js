@@ -1,10 +1,14 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import {addTodo, priorityTodo, todoPriorityMenuDisplay, mobileSideBarDisplay, setVisibilityFilter, ADD_TODO, DELETE_TODO, PRIORITY_TODO, SET_VISIBILITY_FILTER, VisibilityFilter, queryTodos} from '../action/action'
+import {addTodo, priorityTodo, todoPriorityMenuDisplay, 
+        mobileSideBarDisplay, setVisibilityFilter, ADD_TODO, DELETE_TODO, 
+        PRIORITY_TODO, SET_VISIBILITY_FILTER, VisibilityFilter, queryTodos,
+        saveTodoToCloud, updateTodoToCloud, editTodo } from '../action/action'
 import {Panel} from 'react-bootstrap'
 import Sidebar from '../components/Sidebar'
 import ToDoItemBoot from '../components/ToDoItemBoot'
 import AddTodo from '../components/AddTodo'
+import Loading from '../components/Loading'
 import '../../../css/todoMainContainer.scss'
 
 class TodoApp extends React.Component{
@@ -16,19 +20,24 @@ class TodoApp extends React.Component{
 
     render(){
         //通过react-redux的connect注入进来的props
-        const {dispatch, visibileTodos, visibilityFilter, todoPriorityMenu, isMobileSideBarDisplay } = this.props
+        const {dispatch, visibileTodos, visibilityFilter, todoPriorityMenu, 
+                isMobileSideBarDisplay, isQueringTodo, editingTodoId } = this.props
         
         {/*todoPriorityMenu 表示当前显示优先级子菜单的todo的id*/}
         let TodoItems = visibileTodos.map(item => {
             return (  
-                <ToDoItemBoot todo={item} todoPriorityMenu={todoPriorityMenu}
-                    onPriortyChange={(id, priority) => 
-                        dispatch(priorityTodo(id, priority)) 
-                    
+                <ToDoItemBoot todo={item} todoPriorityMenu={todoPriorityMenu} todoEditing={editingTodoId}
+                    onPriortyChange={(newTodo) => 
+                        dispatch(updateTodoToCloud(newTodo)) 
+    
                     }
                     onPriorityMenuShow={(id) => 
                         dispatch(todoPriorityMenuDisplay(id))
-                    } />
+                    } 
+                    onEditingTodo={(id) => 
+                        dispatch(editTodo(id))
+                    }
+                    />
             )
         })
 
@@ -46,12 +55,16 @@ class TodoApp extends React.Component{
                     <div className="col-sm-9 col-md-9 col-xs-12 todoMainCt"> 
                         <Panel header={'我是Panel的title' || this.props.title}>
                             <AddTodo onSubmit={(todoObj) => 
-                                dispatch(addTodo(todoObj))
-                            } />
+                                        dispatch(saveTodoToCloud(todoObj))
+                                    } 
+                            />
                             {TodoItems}
                         </Panel>
                     </div> 
                 </div>
+                
+                {isQueringTodo ?  <Loading/> : null}
+               
             </div>
         )
     }
@@ -80,7 +93,7 @@ TodoApp.propTypes = {
 function selectTodos(todos, filter) {
   switch (filter) {
     case VisibilityFilter.SHOW_ALL:
-      return todos
+      return todos.filter(todo => todo.priority !== 5 )
     default:
      //根据todo.priority过滤,把filter转换成数字再比较
      return todos.filter(todo => todo.priority === parseInt(filter) )
@@ -94,7 +107,9 @@ const mapStateToProps = (state, ownProps) => {
     visibileTodos: selectTodos(state.todos, ownProps.match.params.filter), //selectTodos(state.todos, state.visibilityFilter),
     visibilityFilter: state.visibilityFilter,
     todoPriorityMenu: state.todoPriorityMenu,
-    isMobileSideBarDisplay: state.isMobileSideBarDisplay
+    isMobileSideBarDisplay: state.isMobileSideBarDisplay,
+    isQueringTodo: state.isQueringTodo,
+    editingTodoId: state.editingTodoId
   }
 }
 

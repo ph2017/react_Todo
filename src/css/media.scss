@@ -63,7 +63,15 @@
     .todoItemPanel {
         .function-group {
             right: 30px;
-            bottom: 7px;
+            bottom: -8px;
+
+            .function-item {
+                margin-left: 20px;
+            }
+
+            i {
+                font-size: 18px;
+            }
         }
     }
     

@@ -5,7 +5,10 @@ import MyUtil from '../Util'
 var TodoAV = AV.Object.extend('Todo')
 
 //保存todo数据到云端
-export function saveTodo(todo, successFn, errorFn) {
+// exp
+
+//保存todo数据到云端
+export function saveTodo(todo) {
 
     var saveTodo = new TodoAV();;
 
@@ -25,23 +28,15 @@ export function saveTodo(todo, successFn, errorFn) {
     saveTodo.setACL(acl);
 
     // console.log('要保存的todo：', todo)
-    saveTodo.save()
+    //返回一个Promise,包含接口返回的数据result,与原本的todo：whichTodo
+    return saveTodo.save()
         .then(function (response) {
                 console.log('保存todo成功  objectId is' + response.id)
-                return response.id
+                return {result: response.id, whichTodo: todo}
             },
             function (error) {
                 console.error('保存todo失败：', error);
-            }).then(function (response) {
-            if (successFn) {
-                // console.log('到底有没有来到这个then？？', response)
-                // successFn.call(null, {'objectId': response});
-                successFn();
-
-            }
-        })
-
-
+            })
 }
 
 //根据条件查询云端的todo数据
@@ -130,6 +125,8 @@ export function queryTodoByCondition(condition) {
             let array = response.map((t) => {
                 return {
                     objectId: t.id,
+                    createdAt: t.createdAt.toLocaleString(),
+                    updatedAt: t.updatedAt.toLocaleString(),
                     ...t.attributes
                 }
             })
@@ -141,6 +138,23 @@ export function queryTodoByCondition(condition) {
     }
 }
 
+
+//更新todo的方法
+// export function updateTodo(todo) {
+//     // 第一个参数是 className，第二个参数是 objectId
+//     var todoSave = AV.Object.createWithoutData('Todo', todo.objectId);
+//     // 修改属性
+//     for (var key in todo) {
+//         if (todo.hasOwnProperty(key)) {
+//             var element = todo[key];
+//             if (key !== 'objectId') {
+//                 todoSave.set(key, element);
+//             }
+//         }
+//     }
+//     // 保存到云端
+//     todoSave.save();
+// }
 
 //更新todo的方法
 export function updateTodo(todo) {
@@ -156,7 +170,16 @@ export function updateTodo(todo) {
         }
     }
     // 保存到云端
-    todoSave.save();
+    return todoSave.save().then(function (response) {
+                console.log('更新todo成功  objectId is' + response.id)
+                return {
+                    result: response.id,
+                    whichTodo: todo
+                }
+            },
+            function (error) {
+                console.error('更新todo失败：', error);
+            })
 }
 
 //批量保存todo数据到云端
