@@ -45,8 +45,57 @@ export function saveTodo(todo, successFn, errorFn) {
 }
 
 //根据条件查询云端的todo数据
-export function queryTodoByCondition(condition, successFn, errorFn) {
+// export function queryTodoByCondition(condition, successFn, errorFn) {
 
+//     //构造查询条件，等值查询
+//     var queryArr = [];
+//     for (var key in condition) {
+//         var equalQuery = new AV.Query('Todo');
+//         if (condition.hasOwnProperty(key)) {
+//             equalQuery.equalTo(key, condition[key]);
+//             queryArr.push(equalQuery)
+//         }
+//     }
+
+//     var query = null;
+//     if (queryArr.length > 0) {
+//         //可根据条件查询的查询对象
+//         query = AV.Query.and.apply(null, queryArr);
+
+//         query.find().then(function (response) {
+//             // 获取到本地
+//             console.log('queryTodoByCondition 查询成功：', response)
+//             var todoList = MyUtil.deepCopy(response)
+
+//             return todoList
+//         }, function (error) {
+//             // 异常处理
+//             console.error('queryTodoByCondition 查询失败：', error);
+//         }).then(function (result) {
+//             if (successFn) {
+//                 successFn(result);
+//             }
+//         });
+//     } else {
+//         //不根据条件查询的查询对象
+//         query = new AV.Query('Todo')
+
+//         query.find().then((response) => {
+//             console.log('queryTodoByCondition 查询成功：', response)
+//             let array = response.map((t) => {
+//                 return {
+//                     objectId: t.id,
+//                     ...t.attributes
+//                 }
+//             })
+//             successFn.call(null, array)
+//         }, (error) => {
+//             errorFn && errorFn.call(null, error)
+//         })
+//     }
+// }
+
+export function queryTodoByCondition(condition) {
     //构造查询条件，等值查询
     var queryArr = [];
     for (var key in condition) {
@@ -62,25 +111,21 @@ export function queryTodoByCondition(condition, successFn, errorFn) {
         //可根据条件查询的查询对象
         query = AV.Query.and.apply(null, queryArr);
 
-        query.find().then(function (response) {
+        return query.find().then(function (response) {
             // 获取到本地
             console.log('queryTodoByCondition 查询成功：', response)
-            var todoList = MyUtil().deepCopy(response)
+            var todoList = MyUtil.deepCopy(response)
 
             return todoList
         }, function (error) {
             // 异常处理
             console.error('queryTodoByCondition 查询失败：', error);
-        }).then(function (result) {
-            if (successFn) {
-                successFn(result);
-            }
-        });
+        })
     } else {
         //不根据条件查询的查询对象
         query = new AV.Query('Todo')
 
-        query.find().then((response) => {
+        return query.find().then((response) => {
             console.log('queryTodoByCondition 查询成功：', response)
             let array = response.map((t) => {
                 return {
@@ -88,15 +133,14 @@ export function queryTodoByCondition(condition, successFn, errorFn) {
                     ...t.attributes
                 }
             })
-            successFn.call(null, array)
+            return array
         }, (error) => {
-            errorFn && errorFn.call(null, error)
+            // 异常处理
+            console.error('queryTodoByCondition 查询失败：', error);
         })
     }
-
-
-
 }
+
 
 //更新todo的方法
 export function updateTodo(todo) {

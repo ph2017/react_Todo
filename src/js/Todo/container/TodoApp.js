@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import {addTodo, priorityTodo, todoPriorityMenuDisplay, mobileSideBarDisplay, setVisibilityFilter, ADD_TODO, DELETE_TODO, PRIORITY_TODO, SET_VISIBILITY_FILTER, VisibilityFilter} from '../action/action'
+import {addTodo, priorityTodo, todoPriorityMenuDisplay, mobileSideBarDisplay, setVisibilityFilter, ADD_TODO, DELETE_TODO, PRIORITY_TODO, SET_VISIBILITY_FILTER, VisibilityFilter, queryTodos} from '../action/action'
 import {Panel} from 'react-bootstrap'
 import Sidebar from '../components/Sidebar'
 import ToDoItemBoot from '../components/ToDoItemBoot'
@@ -8,6 +8,11 @@ import AddTodo from '../components/AddTodo'
 import '../../../css/todoMainContainer.scss'
 
 class TodoApp extends React.Component{
+
+    componentDidMount(){
+        const {dispatch} = this.props
+        dispatch(queryTodos({}))
+    }
 
     render(){
         //通过react-redux的connect注入进来的props

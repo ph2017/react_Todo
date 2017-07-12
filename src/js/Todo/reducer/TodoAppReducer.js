@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { ADD_TODO, DELETE_TODO, PRIORITY_TODO, SET_VISIBILITY_FILTER, SET_PRIORITY_MENU_DISPLAY, SET_MOBILE_SIDE_MENU_DISPLAY, VisibilityFilter} from '../action/action'
+import { ADD_TODO, DELETE_TODO, PRIORITY_TODO, SET_VISIBILITY_FILTER, SET_PRIORITY_MENU_DISPLAY, SET_MOBILE_SIDE_MENU_DISPLAY, VisibilityFilter, QUERY_REQUEST_POSTS, QUERY_RECEIVE_POSTS} from '../action/action'
 const { SHOW_ALL } = VisibilityFilter
 
 /**
@@ -35,6 +35,10 @@ const { SHOW_ALL } = VisibilityFilter
                     return item
                 })
         
+        //处理从云端查询到的todo数据，把todo数据放入state
+        case QUERY_RECEIVE_POSTS: 
+            return [...(action.result)]
+
         default: 
             return state
     }
@@ -94,13 +98,39 @@ function mobileSideBarDisplay(state=false, action){
             return state
     }
 }
+/**
+ * 查询，添加，修改云端todo的处理方法
+ * @param {处理state里的isQueringTodo, todos} state 
+ * @param {传入action作为参数} action 
+ */
+function todoCloudOperation(state={
+    isQueringTodo: false
+}, action) {
+    switch(action.type){
+        
+        case QUERY_REQUEST_POSTS:
+            return Object.assign({}, state, {
+                isQueringTodo: true
+            })
+        
+        case QUERY_RECEIVE_POSTS:
+            return Object.assign({}, state, {
+                isQueringTodo: false
+            })
+
+        default: 
+            return state
+    }
+}
 
 //使用combineReducers合并所有reducer
 const TodoAppReducer = combineReducers({
     todos,
     visibilityFilter,
     todoPriorityMenu,
-    isMobileSideBarDisplay: mobileSideBarDisplay
+    isMobileSideBarDisplay: mobileSideBarDisplay,
+    isQueringTodo: todoCloudOperation,
+
     //上面的写法等价于下面这种写法：
     //todos: todos(state.todos, action),
     //visibilityFilter: visibilityFilter(state.visibilityFilter, action)

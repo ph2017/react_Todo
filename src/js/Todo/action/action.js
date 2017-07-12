@@ -3,6 +3,8 @@
  * 定义所有应用中会出现的action
  * 
  */
+import {queryTodoByCondition} from '../components/TodoAV'
+
 export const ADD_TODO = 'ADD_TODO'
 export const DELETE_TODO = 'DELETE_TODO'
 export const PRIORITY_TODO = 'PRIORITY_TODO'
@@ -11,6 +13,10 @@ export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER'
 export const SET_PRIORITY_MENU_DISPLAY = 'SET_PRIORITY_MENU_DISPLAY'
 //设置移动端侧边栏是否显示
 export const SET_MOBILE_SIDE_MENU_DISPLAY = 'SET_MOBILE_SIDE_MENU_DISPLAY'
+//查询异步请求正在执行
+export const QUERY_REQUEST_POSTS = 'QUERY_REQUEST_POSTS'
+//查询异步请求结束
+export const QUERY_RECEIVE_POSTS = 'QUERY_RECEIVE_POSTS'
 
 /**
  * 其他常量
@@ -46,4 +52,29 @@ export function todoPriorityMenuDisplay(id){
 
 export function mobileSideBarDisplay(isDisplay) {
     return {type: SET_MOBILE_SIDE_MENU_DISPLAY, isDisplay}
+}
+
+function queryRequestPosts(condition) {
+  return {
+    type: QUERY_REQUEST_POSTS,
+    condition
+  }
+}
+
+function queryReceivePosts(todoArr) {
+    return {
+        type: QUERY_RECEIVE_POSTS,
+        result: todoArr,
+        receivedAt: Date.now()
+    }
+}
+
+export function queryTodos(condition){
+    return dispatch => {
+        dispatch(queryRequestPosts(condition))
+        
+        //queryTodoByCondition执行完后，如果成功，则会返回Promise,带有todoArr参数
+        return queryTodoByCondition(condition)
+                        .then(todoArray => dispatch(queryReceivePosts(todoArray)))
+    }
 }
