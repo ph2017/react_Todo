@@ -23,7 +23,28 @@ class Sidebar extends React.Component{
       this.props.onVisibilityFilterChange.call(null, )
     }
 
+    handleSelectSideBarItem(event) {
+      this.props.onDisplayToggle.call(null, !this.props.mobileSideBarDisplay)
+    }
+
     render(){
+        let sideItemArr = [
+          {to: '/SHOW_ALL', chName: '全部', class:'list-group-item sidebar-item'},
+          {to: '/1', chName: '紧急', class:'list-group-item list-group-item-danger sidebar-item'},
+          {to: '/2', chName: '也挺紧急', class:'list-group-item list-group-item-warning sidebar-item'},
+          {to: '/3', chName: '一般', class:'list-group-item list-group-item-info sidebar-item'},
+          {to: '/4', chName: '已完成', class:'list-group-item list-group-item-success sidebar-item'}   
+        ]
+   
+        const sideBarItems = sideItemArr.map(item => {
+              return (
+                  <Link className={(this.props.selecedtSideBarItem === item.to.substr(1) ? 'selected ' : '') + item.class} to={item.to}>
+                    {item.chName}
+                  </Link>
+              )
+          })
+          
+
         return (
 
           <div>
@@ -43,17 +64,30 @@ class Sidebar extends React.Component{
                   </div> 
               </div>
 
-              <ul className="list-group sidebar-item-group">
+              {/*<ul className="list-group sidebar-item-group" onClick={this.handleSelectSideBarItem.bind(this)}>
                 
-                <li className="list-group-item sidebar-item">
-                  {/*<a href="#SHOW_ALL">全部</a>*/}
+                {sideBarItems}
+                <li className={"list-group-item sidebar-item"} data-value="/SHOW_ALL">
                   <Link to="/SHOW_ALL">全部</Link>
                 </li>
-                <li className="list-group-item list-group-item-danger sidebar-item"><Link to="/1">紧急</Link></li>
-                <li className="list-group-item list-group-item-warning sidebar-item"><Link to="/2">也挺紧急</Link></li>
-                <li className="list-group-item list-group-item-info sidebar-item"><Link to="/3">一般</Link></li>
-                <li className="list-group-item list-group-item-success sidebar-item"><Link to="/4">已完成</Link></li>
-              </ul>
+                <li className="list-group-item list-group-item-danger sidebar-item" data-value="/1"><Link to="/1">紧急</Link></li>
+                <li className="list-group-item list-group-item-warning sidebar-item" data-value="/2"><Link to="/2">也挺紧急</Link></li>
+                <li className="list-group-item list-group-item-info sidebar-item" data-value="/3"><Link to="/3">一般</Link></li>
+                <li className="list-group-item list-group-item-success sidebar-item" data-value="/4"><Link to="/4">已完成</Link></li>
+              </ul>*/}
+              <nav className="list-group sidebar-item-group" onClick={this.handleSelectSideBarItem.bind(this)}>
+                
+                {sideBarItems}
+                {/*<Link className="list-group-item sidebar-item" to="/SHOW_ALL">全部</Link>
+                <Link className="list-group-item list-group-item-danger sidebar-item" to="/SHOW_ALL">紧急</Link>
+                <Link className="list-group-item list-group-item-warning sidebar-item" to="/SHOW_ALL">也挺紧急</Link>
+                <Link className="list-group-item list-group-item-info sidebar-item" to="/SHOW_ALL">一般</Link>
+                <Link className="list-group-item list-group-item-success sidebar-item" to="/SHOW_ALL">已完成</Link>*/}
+                {/*<li className="list-group-item list-group-item-danger sidebar-item" data-value="/1"><Link to="/1">紧急</Link></li>
+                <li className="list-group-item list-group-item-warning sidebar-item" data-value="/2"><Link to="/2">也挺紧急</Link></li>
+                <li className="list-group-item list-group-item-info sidebar-item" data-value="/3"><Link to="/3">一般</Link></li>
+                <li className="list-group-item list-group-item-success sidebar-item" data-value="/4"><Link to="/4">已完成</Link></li>*/}
+              </nav>
             </div>
           </div>
         )

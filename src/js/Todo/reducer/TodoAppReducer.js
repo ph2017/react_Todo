@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import { ADD_TODO, DELETE_TODO, PRIORITY_TODO, SET_VISIBILITY_FILTER, 
             SET_PRIORITY_MENU_DISPLAY, SET_MOBILE_SIDE_MENU_DISPLAY, VisibilityFilter, 
             QUERY_REQUEST_POSTS, QUERY_RECEIVE_POSTS, SAVE_REQUEST_POSTS, SAVE_RECEIVE_POSTS,
-            MODIFY_TODO, EDIT_TODO} from '../action/action'
+            MODIFY_TODO, EDIT_TODO, SELECT_SIDE_BAR_ITEM} from '../action/action'
 const { SHOW_ALL } = VisibilityFilter
 
 /**
@@ -177,6 +177,20 @@ function editingTodoId(state='', action){
     }
 }
 
+/**
+ * 处理侧边栏选中显示样式的方法
+ * @param {选中的侧边栏item的序号sideBarItemIndex} state 
+ * @param {*} action 
+ */
+function sideBarItemIndex(state=0, action){
+    switch(action.type) {
+        case SELECT_SIDE_BAR_ITEM:
+            return action.index
+        default: 
+            return state
+    }
+}
+
 //使用combineReducers合并所有reducer
 const TodoAppReducer = combineReducers({
     todos,
@@ -185,7 +199,8 @@ const TodoAppReducer = combineReducers({
     isMobileSideBarDisplay: mobileSideBarDisplay,
     isQueringTodo: queryCloudOperation,
     isSavingTodo: saveCloudOperation,
-    editingTodoId
+    editingTodoId,
+    sideBarItemIndex
     //上面的写法等价于下面这种写法：
     //todos: todos(state.todos, action),
     //visibilityFilter: visibilityFilter(state.visibilityFilter, action)

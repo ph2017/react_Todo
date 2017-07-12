@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import {addTodo, priorityTodo, todoPriorityMenuDisplay, 
         mobileSideBarDisplay, setVisibilityFilter, ADD_TODO, DELETE_TODO, 
         PRIORITY_TODO, SET_VISIBILITY_FILTER, VisibilityFilter, queryTodos,
-        saveTodoToCloud, updateTodoToCloud, editTodo } from '../action/action'
+        saveTodoToCloud, updateTodoToCloud, editTodo, selectSideBarItem } from '../action/action'
 import {Panel} from 'react-bootstrap'
 import Sidebar from '../components/Sidebar'
 import ToDoItemBoot from '../components/ToDoItemBoot'
@@ -44,7 +44,7 @@ class TodoApp extends React.Component{
         return (
             <div className="container-fluid">
                 <div className="row">
-                    <Sidebar mobileSideBarDisplay={isMobileSideBarDisplay} 
+                    <Sidebar mobileSideBarDisplay={isMobileSideBarDisplay} selecedtSideBarItem={this.props.match.params.filter}
                         onDisplayToggle={(isMobileSideBarDisplay) => 
                             dispatch(mobileSideBarDisplay(isMobileSideBarDisplay))
                         }
@@ -109,7 +109,8 @@ const mapStateToProps = (state, ownProps) => {
     todoPriorityMenu: state.todoPriorityMenu,
     isMobileSideBarDisplay: state.isMobileSideBarDisplay,
     isQueringTodo: state.isQueringTodo,
-    editingTodoId: state.editingTodoId
+    editingTodoId: state.editingTodoId,
+    sideBarItemIndex: state.sideBarItemIndex
   }
 }
 

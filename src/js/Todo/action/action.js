@@ -24,6 +24,8 @@ export const SAVE_REQUEST_POSTS = 'SAVE_REQUEST_POSTS'
 export const SAVE_RECEIVE_POSTS = 'SAVE_RECEIVE_POSTS'
 //编辑中的todo
 export const EDIT_TODO = 'EDIT_TODO'
+//选择侧边栏的项目
+export const SELECT_SIDE_BAR_ITEM = 'SELECT_SIDE_BAR_ITEM'
 
 
 /**
@@ -149,4 +151,12 @@ export function updateTodoToCloud(todo){
  */
 export function editTodo(id){
     return {type: EDIT_TODO, id}
+}
+
+/**
+ * 选择侧边栏项目时，记录选中的item的序号
+ * @param {侧边栏项目的序号} index 
+ */
+export function selectSideBarItem(index) {
+    return {type: SELECT_SIDE_BAR_ITEM, index}
 }
