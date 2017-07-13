@@ -60,7 +60,7 @@ class Sidebar extends React.Component{
               <div className="row">
                   <div className="col-sm-10 col-md-9 col-xs-10 user-avatar">
                     <img src='https://avatars2.githubusercontent.com/u/28702748?v=3&s=40' alt="user.avatar"/>
-                     <span className="user-name">{'Hello,' + (this.props.user || '')}</span>
+                     <span className="user-name">{'Hello, ' + (this.props.user ? this.props.user.username : '')}</span>
                   </div> 
               </div>
 

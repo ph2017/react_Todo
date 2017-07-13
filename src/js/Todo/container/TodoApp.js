@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import {addTodo, priorityTodo, todoPriorityMenuDisplay, 
         mobileSideBarDisplay, setVisibilityFilter, ADD_TODO, DELETE_TODO, 
         PRIORITY_TODO, SET_VISIBILITY_FILTER, VisibilityFilter, queryTodos,
@@ -21,8 +22,19 @@ class TodoApp extends React.Component{
     render(){
         //通过react-redux的connect注入进来的props
         const {dispatch, visibileTodos, visibilityFilter, todoPriorityMenu, 
-                isMobileSideBarDisplay, isQueringTodo, editingTodoId } = this.props
+                isMobileSideBarDisplay, isQueringTodo, editingTodoId, user } = this.props
         
+        const userId = user ? user.id : undefined
+
+        if(!userId){
+            return (
+                <Redirect to={{
+                    pathname: '/signin',
+                    state: { from: this.props.location }
+                }}/>
+            )
+        }
+
         {/*todoPriorityMenu 表示当前显示优先级子菜单的todo的id*/}
         let TodoItems = visibileTodos.map(item => {
             return (  
@@ -43,8 +55,10 @@ class TodoApp extends React.Component{
 
         return (
             <div className="container-fluid">
+
                 <div className="row">
-                    <Sidebar mobileSideBarDisplay={isMobileSideBarDisplay} selecedtSideBarItem={this.props.match.params.filter}
+                    <Sidebar mobileSideBarDisplay={isMobileSideBarDisplay} selecedtSideBarItem={this.props.match.params.filter} 
+                        user = {user}
                         onDisplayToggle={(isMobileSideBarDisplay) => 
                             dispatch(mobileSideBarDisplay(isMobileSideBarDisplay))
                         }
@@ -53,7 +67,7 @@ class TodoApp extends React.Component{
                         }>
                     </Sidebar>
                     <div className="col-sm-9 col-md-9 col-xs-12 todoMainCt"> 
-                        <Panel header={'我是Panel的title' || this.props.title}>
+                        <Panel header={user ? (user.username + '的代办任务') : ''}>
                             <AddTodo onSubmit={(todoObj) => 
                                         dispatch(saveTodoToCloud(todoObj))
                                     } 
@@ -110,7 +124,8 @@ const mapStateToProps = (state, ownProps) => {
     isMobileSideBarDisplay: state.isMobileSideBarDisplay,
     isQueringTodo: state.isQueringTodo,
     editingTodoId: state.editingTodoId,
-    sideBarItemIndex: state.sideBarItemIndex
+    sideBarItemIndex: state.sideBarItemIndex,
+    user: state.userInfo.user
   }
 }
 

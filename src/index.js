@@ -41,7 +41,7 @@ let store = createStore(TodoAppReducer,
 // let unsubscribe = store.subscribe(() =>
 //   console.log('监听store的state,当前state:',store.getState())
 // )
-store.dispatch(addTodo({title:'测试1', id: MyUtils.getRandom(0, 99999) }))
+// store.dispatch(addTodo({title:'测试1', id: MyUtils.getRandom(0, 99999) }))
 
 /*ReactDOM.render(
          <Provider store={store}>

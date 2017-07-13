@@ -2,7 +2,8 @@ import { combineReducers } from 'redux'
 import { ADD_TODO, DELETE_TODO, PRIORITY_TODO, SET_VISIBILITY_FILTER, 
             SET_PRIORITY_MENU_DISPLAY, SET_MOBILE_SIDE_MENU_DISPLAY, VisibilityFilter, 
             QUERY_REQUEST_POSTS, QUERY_RECEIVE_POSTS, SAVE_REQUEST_POSTS, SAVE_RECEIVE_POSTS,
-            MODIFY_TODO, EDIT_TODO, SELECT_SIDE_BAR_ITEM} from '../action/action'
+            MODIFY_TODO, EDIT_TODO, SELECT_SIDE_BAR_ITEM, USER_REQUEST_POST, USER_RECEIVE_POST, 
+            SIGN_UP, SIGN_IN} from '../action/action'
 const { SHOW_ALL } = VisibilityFilter
 
 /**
@@ -191,6 +192,22 @@ function sideBarItemIndex(state=0, action){
     }
 }
 
+/**
+ * 处理用户相关操作的方法
+ * @param {userInfo对象} state 
+ * @param {*} action 
+ */
+function userInfo(state={}, action){
+    switch(action.type) {
+        case USER_REQUEST_POST:
+            return Object.assign({}, state, {isRequiringUser: true})
+        case USER_RECEIVE_POST:
+            return Object.assign({}, state, {isRequiringUser: false, user: action.userInfo.user})
+        default:
+            return state
+    }
+}
+
 //使用combineReducers合并所有reducer
 const TodoAppReducer = combineReducers({
     todos,
@@ -200,7 +217,8 @@ const TodoAppReducer = combineReducers({
     isQueringTodo: queryCloudOperation,
     isSavingTodo: saveCloudOperation,
     editingTodoId,
-    sideBarItemIndex
+    sideBarItemIndex,
+    userInfo
     //上面的写法等价于下面这种写法：
     //todos: todos(state.todos, action),
     //visibilityFilter: visibilityFilter(state.visibilityFilter, action)

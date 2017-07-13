@@ -3,7 +3,8 @@
  * 定义所有应用中会出现的action
  * 
  */
-import {queryTodoByCondition, saveTodo, updateTodo} from '../components/TodoAV'
+import {queryTodoByCondition, saveTodo, updateTodo } from '../components/TodoAV'
+import {signUp, signIn} from '../components/LeanCloud'
 
 export const ADD_TODO = 'ADD_TODO'
 export const MODIFY_TODO = 'MODIFY_TODO'
@@ -26,6 +27,15 @@ export const SAVE_RECEIVE_POSTS = 'SAVE_RECEIVE_POSTS'
 export const EDIT_TODO = 'EDIT_TODO'
 //选择侧边栏的项目
 export const SELECT_SIDE_BAR_ITEM = 'SELECT_SIDE_BAR_ITEM'
+//注册
+export const SIGN_UP = 'SIGN_UP'
+//登录
+export const SIGN_IN = 'SIGN_IN'
+//用户信息请求
+export const USER_REQUEST_POST = 'USER_REQUEST_POST'
+//用户信息获取
+export const USER_RECEIVE_POST = 'USER_RECEIVE_POST'
+
 
 
 /**
@@ -159,4 +169,64 @@ export function editTodo(id){
  */
 export function selectSideBarItem(index) {
     return {type: SELECT_SIDE_BAR_ITEM, index}
+}
+
+/**
+ * 处理user的请求状态action
+ * state中的userInfo结构
+ * {
+ *      isRequiringUser: true
+ *      user
+ * }
+ * @param {需要注册的user对象} user 
+ */
+function userRequestPost(user) {
+    return {type: USER_REQUEST_POST, 'userInfo': {'isRequiringUser': true, 'user': user} }
+}
+
+/**
+ * 处理user的请求状态action
+ * state中的userInfo结构
+ * {
+ *      isRequiringUser: true
+ *      user
+ * }
+ * @param {需要注册的user对象} user 
+ */
+function userReceivePost(user) {
+    return {type: USER_RECEIVE_POST, 'userInfo': {isRequiringUser: false, 'user': user}}
+}
+
+/**
+ * 处理注册的action
+ * state中的userInfo结构
+ * {
+ *      isRequiringUser: true
+ *      user
+ * }
+ * @param {需要注册的user对象} user 
+ */
+export function signUpProcess(user){
+    return dispatch => {
+        dispatch(userRequestPost(user))
+
+        return signUp(user).then(result => dispatch(userReceivePost(result)))
+    }
+}
+
+/**
+ * 处理登录的action
+ * state中的userInfo结构
+ * {
+ *      isRequiringUser: true
+ *      user
+ * }
+ * @param {需要注册的user对象} user 
+ */
+export function signInProcess(user){
+    return dispatch => {
+        dispatch(userRequestPost(user))
+
+        return signIn(user).then(result => dispatch(userReceivePost(result)))
+    }
 }

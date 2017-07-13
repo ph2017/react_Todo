@@ -10,33 +10,69 @@ AV.init({
 export default AV;
 
 //注册的方法
-export function signUp(userName, passWord, successFn, errorFn){
+// export function signUp(userName, passWord, email, successFn, errorFn){
+//     //创建AVUser对象实例
+//     let user = new AV.User()
+//     //设置用户名
+//     user.setUsername(userName)
+//     //设置用户密码
+//     user.setPassword(passWord)
+//     //设置邮箱
+//     user.setEmail(email)
+
+//     user.signUp().then(function(loginedUser){
+//         let user = getUserFromAVUser(loginedUser)
+//         successFn.call(null, user)
+//     }, function(error){
+//         errorFn.call(null, error)
+//     })
+
+//     return undefined
+// }
+
+//注册的方法
+export function signUp(userObj){
     //创建AVUser对象实例
     let user = new AV.User()
     //设置用户名
-    user.setUsername(userName)
+    user.setUsername(userObj.userName)
     //设置用户密码
-    user.setPassword(passWord)
+    user.setPassword(userObj.password)
     //设置邮箱
+    user.setEmail(userObj.email)
 
-    user.signUp().then(function(loginedUser){
+    return user.signUp().then(function(loginedUser){
         let user = getUserFromAVUser(loginedUser)
-        successFn.call(null, user)
+        console.log('注册成功', user)
+        return user
     }, function(error){
-        errorFn.call(null, error)
+         console.log('注册失败', error)
+        return error
     })
-
-    return undefined
 }
 
 //登录的方法
-export function signIn(userName, passWord, successFn, errorFn){
+// export function signIn(userName, passWord, successFn, errorFn){
    
-    AV.User.logIn(userName, passWord).then(function(loginedUser){
+//     AV.User.logIn(userName, passWord).then(function(loginedUser){
+//         let user = getUserFromAVUser(loginedUser)
+//         successFn.call(null, user)
+//     }, function(error){
+//         errorFn.call(null, error)
+//     })
+
+// }
+
+//登录的方法
+export function signIn(userObj){
+   
+    return AV.User.logIn(userObj.userName, userObj.password).then(function(loginedUser){
         let user = getUserFromAVUser(loginedUser)
-        successFn.call(null, user)
+        console.log('登录成功', user)
+        return user
     }, function(error){
-        errorFn.call(null, error)
+         console.log('登录失败', error)
+         return error
     })
 
 }
