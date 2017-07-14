@@ -1,0 +1,6 @@
+# Browsers that we support
+# Autoprefixer 的配置文件，指定需要兼容哪些浏览器
+
+> 1%
+Last 2 versions
+IE 8 # sorry
