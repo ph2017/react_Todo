@@ -14,9 +14,10 @@ import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
 import  TodoAppReducer  from './js/Todo/reducer/TodoAppReducer'
 import TodoApp from './js/Todo/container/TodoApp'
-import { addTodo } from './js/Todo/action/action'
+import { addTodo, currentUserProcess } from './js/Todo/action/action'
 import MyUtils from './js/Todo/Util'
 import Root from './js/Todo/components/Root'
+import {getCurrentUser} from './js/Todo/components/LeanCloud'
 import './css/media.scss'
 
 
@@ -42,6 +43,10 @@ let store = createStore(TodoAppReducer,
 //   console.log('监听store的state,当前state:',store.getState())
 // )
 // store.dispatch(addTodo({title:'测试1', id: MyUtils.getRandom(0, 99999) }))
+
+//先获取上次登录的用户，注入state中，可避免每次都重新登录
+let user = getCurrentUser()
+store.dispatch(currentUserProcess(user))
 
 /*ReactDOM.render(
          <Provider store={store}>

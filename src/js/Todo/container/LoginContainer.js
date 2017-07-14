@@ -2,9 +2,8 @@ import React from 'react'
 import '../../../css/loginContainer.scss'
 import { Link, Redirect} from 'react-router-dom'
 import { connect } from 'react-redux'
-// import {signUp, signIn} from '../components/LeanCloud'
 import {signUpProcess, signInProcess} from '../action/action'
-
+import Loading from '../components/Loading'
 
 class LoginContainer extends React.Component {
 
@@ -48,7 +47,7 @@ class LoginContainer extends React.Component {
     }
 
     render(){
-        const {user} = this.props
+        const {user, isRequiringUser} = this.props
 
         const userId = user ? user.id : undefined
 
@@ -114,6 +113,7 @@ class LoginContainer extends React.Component {
                     }
                     </div>
 
+                    {isRequiringUser ? <Loading/> : null}
             </div> 
         )
     }
@@ -124,7 +124,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     onSignUp: signUpProcess,
     onSignIn: signInProcess,
-    user: state.userInfo.user
+    user: state.userInfo.user,
+    isRequiringUser: state.userInfo.isRequiringUser
   }
 }
 

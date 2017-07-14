@@ -95,6 +95,17 @@ export function getCurrentUser(){
     }
 }
 
+// export function getCurrentUser(){
+//     return AV.User.current().then(function(loginedUser){
+//         let user = getUserFromAVUser(loginedUser)
+//         console.log('获取最近登录用户成功', user)
+//         return user
+//     },function(error){
+//         console.log('获取最近登录用户失败', error)
+//          return error
+//     })
+// }
+
 //登出的处理方法
 export function signOut(){
     AV.User.logOut()

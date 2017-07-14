@@ -4,7 +4,8 @@ import { Redirect } from 'react-router-dom'
 import {addTodo, priorityTodo, todoPriorityMenuDisplay, 
         mobileSideBarDisplay, setVisibilityFilter, ADD_TODO, DELETE_TODO, 
         PRIORITY_TODO, SET_VISIBILITY_FILTER, VisibilityFilter, queryTodos,
-        saveTodoToCloud, updateTodoToCloud, editTodo, selectSideBarItem } from '../action/action'
+        saveTodoToCloud, updateTodoToCloud, editTodo, selectSideBarItem,
+        signOutProcess } from '../action/action'
 import {Panel} from 'react-bootstrap'
 import Sidebar from '../components/Sidebar'
 import ToDoItemBoot from '../components/ToDoItemBoot'
@@ -64,7 +65,11 @@ class TodoApp extends React.Component{
                         }
                         onVisibilityFilterChange={(visibaleFilter) => 
                             dispatch(setVisibilityFilter(visibaleFilter))
-                        }>
+                        }
+                        onSignOut={(user) => 
+                            dispatch(signOutProcess(user))
+                        }
+                        >
                     </Sidebar>
                     <div className="col-sm-9 col-md-9 col-xs-12 todoMainCt"> 
                         <Panel header={user ? (user.username + '的代办任务') : ''}>

@@ -11,8 +11,8 @@
         padding: 15px 5px;
         vertical-align: middle;
         >img {
-            max-width: 50px;
-            max-height: 50px;
+            max-width: 60px;
+            max-height: 60px;
             border: 2px solid #777;
             border-radius: 50%;
             cursor: pointer;
@@ -48,6 +48,15 @@
         color: #fff;
         background-color: $primary-color;
     }
+    .op-icon {
+        font-size: 15px;
+        opacity: .8;
+        cursor: pointer;
+    }
+    .op-icon:hover {
+        opacity: 1;
+    }
+
 }
 
 //移动端导航栏样式

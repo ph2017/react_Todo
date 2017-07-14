@@ -35,7 +35,10 @@ export const SIGN_IN = 'SIGN_IN'
 export const USER_REQUEST_POST = 'USER_REQUEST_POST'
 //用户信息获取
 export const USER_RECEIVE_POST = 'USER_RECEIVE_POST'
-
+//用户登出
+export const SIGN_OUT = 'SIGN_OUT'
+//上次登录用户
+export const CURRENT_USER = 'CURRENT_USER'
 
 
 /**
@@ -229,4 +232,35 @@ export function signInProcess(user){
 
         return signIn(user).then(result => dispatch(userReceivePost(result)))
     }
+}
+
+/**
+ * 处理登出的action
+ * state中的userInfo结构
+ * {
+ *      isRequiringUser: true
+ *      user
+ * }
+ * @param {需要注册的user对象} user 
+ */
+export function signOutProcess(user){
+    return { type: SIGN_OUT, userInfo: {'user': user } }
+}
+
+/**
+ * 处理获取上次登录用户的action
+ * state中的userInfo结构
+ * {
+ *      isRequiringUser: true
+ *      user
+ * }
+ * @param {需要注册的user对象} user 
+ */
+export function currentUserProcess(user){
+    // return dispatch => {
+    //     dispatch(userRequestPost(user))
+
+    //     return getCurrentUser().then((returnUser) => dispatch(userReceivePost(returnUser)))
+    // }
+    return {type: CURRENT_USER, userInfo: {'user': user}}
 }

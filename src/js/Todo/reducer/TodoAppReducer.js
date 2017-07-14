@@ -3,7 +3,7 @@ import { ADD_TODO, DELETE_TODO, PRIORITY_TODO, SET_VISIBILITY_FILTER,
             SET_PRIORITY_MENU_DISPLAY, SET_MOBILE_SIDE_MENU_DISPLAY, VisibilityFilter, 
             QUERY_REQUEST_POSTS, QUERY_RECEIVE_POSTS, SAVE_REQUEST_POSTS, SAVE_RECEIVE_POSTS,
             MODIFY_TODO, EDIT_TODO, SELECT_SIDE_BAR_ITEM, USER_REQUEST_POST, USER_RECEIVE_POST, 
-            SIGN_UP, SIGN_IN} from '../action/action'
+            SIGN_OUT, CURRENT_USER } from '../action/action'
 const { SHOW_ALL } = VisibilityFilter
 
 /**
@@ -203,6 +203,10 @@ function userInfo(state={}, action){
             return Object.assign({}, state, {isRequiringUser: true})
         case USER_RECEIVE_POST:
             return Object.assign({}, state, {isRequiringUser: false, user: action.userInfo.user})
+        case SIGN_OUT:
+            return Object.assign({}, state, {user: action.userInfo.user})
+        case CURRENT_USER:
+            return Object.assign({}, state, {user: action.userInfo.user})
         default:
             return state
     }

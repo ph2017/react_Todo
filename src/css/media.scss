@@ -36,6 +36,11 @@
         left: -1000px;
         transition: left ease-in-out .5s;
 
+        .user-avatar img{
+            height: 40px;
+            width: 40px;
+        }
+
         .user-avatar > .user-name {
             display: none;
         }
@@ -55,7 +60,7 @@
             min-height: 650px;
         }
         > .panel-default > .panel-heading {
-            padding: 20px 0;
+            padding: 15px 0;
             text-align: center;
         }
     }   
