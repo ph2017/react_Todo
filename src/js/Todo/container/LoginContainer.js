@@ -83,10 +83,16 @@ class LoginContainer extends React.Component {
                     {
                         isSiginin ? (
                              <form id="fromSignIn" className="form-signin" onSubmit={this.onSignIn.bind(this)}>
-                                <label htmlFor="userName" className="sr-only">用户名</label>
-                                <input type="text" id="inputUserName" name="userName" className="form-control" placeholder="用户名" required autoFocus/>
-                                <label htmlFor="password" className="sr-only">密码</label>
-                                <input type="password" id="inputPassword" name="passWord" className="form-control" placeholder="密码(不小于6位)" required/>
+                                <div className="input-wrapper">
+                                    <label htmlFor="userName" className="sr-only">用户名</label>
+                                    <span className="input-tips"><i className="glyphicon glyphicon-user"></i></span>
+                                    <input type="text" id="inputUserName" name="userName" className="form-control" placeholder="用户名" required autoFocus/>
+                                </div>
+                                <div className="input-wrapper">
+                                    <label htmlFor="password" className="sr-only">密码</label>
+                                    <span className="input-tips"><i className="glyphicon glyphicon-lock"></i></span>
+                                    <input type="password" id="inputPassword" name="passWord" className="form-control" placeholder="密码(不小于6位)" required/>
+                                </div>
                                 <div className="checkbox">
                                     <label>
                                         <input type="checkbox" value="remember-me"/> 记住我
@@ -100,13 +106,22 @@ class LoginContainer extends React.Component {
                     {  
                         isSignup ? (
                             <form id="fromSignUp" className="form-signup" onSubmit={this.onSignUp.bind(this)}>
-                                <label htmlFor="inputUserName" className="sr-only">用户名</label>
-                                <input type="text" id="inputUserName2" name="userName2" className="form-control" placeholder="用户名" required autoFocus/>
-                                <label htmlFor="inputEmail" className="sr-only">邮箱</label>
-                                <input type="email" id="inputEmail2" name="email2" className="form-control" placeholder="邮箱" required/>
-                                <label htmlFor="inputPassword" className="sr-only">密码</label>
-                                <input type="password" id="inputPassword2" name="passWord2" className="form-control" placeholder="密码(不小于6位)" required/>
-                            
+                                <div className="input-wrapper">
+                                    <label htmlFor="inputEmail" className="sr-only">邮箱</label>
+                                    <span title="user name" className="input-tips"><i className="glyphicon glyphicon-envelope"></i></span>
+                                    <input type="email" id="inputEmail2" name="email" className="form-control" placeholder="邮箱" required/>
+                                </div>
+                                <div className="input-wrapper">
+                                    <label htmlFor="inputUserName" className="sr-only">用户名</label>
+                                    <span className="input-tips"><i className="glyphicon glyphicon-user"></i></span>
+                                    <input type="text" id="inputUserName2" name="userName" className="form-control" placeholder="用户名" required autoFocus/>
+                                </div>
+                                <div className="input-wrapper">
+                                    <label htmlFor="inputPassword" className="sr-only">密码</label>
+                                    <span className="input-tips"><i className="glyphicon glyphicon-lock"></i></span>
+                                    <input type="password" id="inputPassword2" name="passWord2" className="form-control" placeholder="密码(不小于6位)" required/>
+                                </div>
+                                
                                 <button className="btn btn-lg btn-primary btn-block" type="submit">注册</button>
                             </form>
                         ) : null
