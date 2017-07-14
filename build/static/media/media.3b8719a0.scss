@@ -1,0 +1,93 @@
+@import './basic.scss';
+@import './sideBar.scss';
+@import './todoItemBoot.scss';
+
+@media screen and (min-width:$screen-sm-min) {
+    .sidebar {
+        display: block;
+    }
+
+}
+
+@media screen and (min-width:$screen-md-min) {
+    .sidebar {
+        display: block;
+    }
+    
+}
+
+@media screen and (min-width:$screen-lg-min) {
+
+}
+
+//超小屏，手机屏幕上的显示效果
+@media screen and (min-width: 200px) and (max-width:$screen-sm-min){
+    .mobile-bar{
+        display: block;
+    }
+    
+    .sidebar.active {
+        left: 0;
+    }
+    .sidebar {
+        position: fixed;
+        margin-top: 50px;
+        z-index: 1;
+        left: -1000px;
+        transition: left ease-in-out .5s;
+
+        .user-avatar img{
+            height: 40px;
+            width: 40px;
+        }
+
+        .user-avatar > .user-name {
+            display: none;
+        }
+    }
+
+    .todoMainCt {
+        // float: right;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding-right: 0;
+        padding-left: 0;
+        margin-top: 50px;
+        > .panel-default {
+            min-height: 650px;
+        }
+        > .panel-default > .panel-heading {
+            padding: 15px 0;
+            text-align: center;
+        }
+    }   
+
+    .todoItemPanel {
+        .function-group {
+            right: 30px;
+            bottom: -8px;
+
+            .function-item {
+                margin-left: 20px;
+            }
+
+            i {
+                font-size: 18px;
+            }
+        }
+    }
+    
+    .sidebar-item:hover::after {
+        visibility: hidden;
+        animation: none;
+    }
+}
+
+@media screen and (min-width: 200px) and (max-width:400px) {
+    .todoTime {
+        display: none;
+    }
+}

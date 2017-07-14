@@ -1,0 +1,72 @@
+@import './basic.scss';
+.from-ct {
+    max-width: 330px;
+    padding: 15px;
+    margin: 80px auto;
+    text-align: center;
+    .form-control {
+        border-radius: 0;
+        margin-bottom: -1px;
+        padding: 20px;
+    }
+    .form-signin input:nth-of-type(1),
+    .form-signup input:nth-of-type(1) {
+        margin-bottom: -1px;
+        border-top-right-radius: 4px;
+        border-top-left-radius: 4px;
+    }
+    .form-signin input:last-of-type,
+    .form-signup input:last-of-type {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+    .form-signin input:focus,
+    .form-signup input:focus {
+        margin-bottom: 0;
+    }
+    .form-signup button[type="submit"] {
+        margin-top: 30px;
+    }
+    .signin-signup-ct {
+        position: relative;
+        display: inline-block;
+        margin: 20px auto;
+        .selected.item{
+            color: $primary-color;
+        }
+        .item {
+            display: inline-block;
+            font-size: 16px;
+            color: #777;
+            text-decoration: none;
+        }
+        .item:last-of-type {
+            margin-left: 20px;
+        }
+        .active-item-bar {
+            position: absolute;
+            left: -5px;
+            bottom: -4px;
+            height: 3px;
+            width: 50%;
+            background-color: $primary-color;
+            transition: left .3s ease-in-out;
+        }
+        .active-item-bar[data-active-index="1"] {
+            left: 47px;
+        }  
+        
+    }
+
+    .checkbox {
+        text-align: left;
+    }
+
+    .todo-logo {
+            img{
+                height: 50px;
+                width: 50px;
+            }
+        }
+}
