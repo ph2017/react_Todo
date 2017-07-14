@@ -109,12 +109,12 @@ class LoginContainer extends React.Component {
                                 <div className="input-wrapper">
                                     <label htmlFor="inputEmail" className="sr-only">邮箱</label>
                                     <span title="user name" className="input-tips"><i className="glyphicon glyphicon-envelope"></i></span>
-                                    <input type="email" id="inputEmail2" name="email" className="form-control" placeholder="邮箱" required/>
+                                    <input type="email" id="inputEmail2" name="email" className="form-control" placeholder="邮箱" required autoFocus/>
                                 </div>
                                 <div className="input-wrapper">
                                     <label htmlFor="inputUserName" className="sr-only">用户名</label>
                                     <span className="input-tips"><i className="glyphicon glyphicon-user"></i></span>
-                                    <input type="text" id="inputUserName2" name="userName" className="form-control" placeholder="用户名" required autoFocus/>
+                                    <input type="text" id="inputUserName2" name="userName" className="form-control" placeholder="用户名" required />
                                 </div>
                                 <div className="input-wrapper">
                                     <label htmlFor="inputPassword" className="sr-only">密码</label>
