@@ -8,7 +8,7 @@ import createBrowserHistory from 'history/createBrowserHistory'
 
 const history = createBrowserHistory({
     //加入basename参数，可以使路由跳转时url自动加上basename前缀
-    basename: '/react_Todo/build'
+    basename: '/react_Todo/build/index.html'
 })
 
 const Root = ({store}) => {
