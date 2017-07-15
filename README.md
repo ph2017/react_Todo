@@ -11,7 +11,7 @@ react + react-router + redux + sass + react-bootstrap + leanCloudApi + webpack
     npm run start
 
 ##演示：
-  [预览](https://ph2017.github.io/react_Todo/build/signin)
+  [预览](https://ph2017.github.io/react_Todo/build/index.html)
 
 ##功能说明：
   1. 用户注册/登录 (使用learnCloudApi实现)
