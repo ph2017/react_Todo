@@ -6,7 +6,10 @@ import TodoApp from '../container/TodoApp'
 import LoginContainer from '../container/LoginContainer'
 import createBrowserHistory from 'history/createBrowserHistory'
 
-const history = createBrowserHistory()
+const history = createBrowserHistory({
+    //加入basename参数，可以使路由跳转时url自动加上basename前缀
+    basename: '/react_Todo/build'
+})
 
 const Root = ({store}) => {
     const user = store.getState().userInfo.user
