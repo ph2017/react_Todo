@@ -23,6 +23,7 @@ const Root = ({store}) => {
                 {/*<Route path="/:filter" component={TodoApp}></Route>*/}
 
                 <Switch>
+                    <Route path="/" component={LoginContainer}></Route>
                     <Route path="/signin" component={LoginContainer}></Route>
                     <Route path="/signup" component={LoginContainer}></Route>
                     <Route path="/:filter" component={TodoApp}/>
