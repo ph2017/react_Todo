@@ -9,7 +9,7 @@ import createHashHistory from 'history/createHashHistory'
 
 const history = createHashHistory({
     //加入basename参数，可以使路由跳转时url自动加上basename前缀
-    basename: '/react_Todo/build/index.html#'
+    basename: '/react_Todo/build/#'
 })
 
 const Root = ({store}) => {
@@ -19,7 +19,7 @@ const Root = ({store}) => {
         <Provider store={store}>
             
             <BrowserRouter history={history}
-                basename="/react_Todo/build/index.html#">
+                basename="/react_Todo/build/#">
                 <Switch>
                     <Route path="/signin" component={LoginContainer} />
                     <Route path="/signup" component={LoginContainer} />
